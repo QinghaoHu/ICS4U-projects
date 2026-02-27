@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Bus
+comment0.text=\n\ The\ Bus\ subclass\ represents\ a\ large\ public\ transit\ vehicle.\n\ Buses\ are\ slower\ than\ cars\ and\ taller,\ requiring\ a\ y-offset\ for\ proper\ positioning.\n\ Currently\ does\ not\ interact\ with\ pedestrians\ (students\ can\ implement\ this).\n\n\ @author\ Jordan\ Cohen\n\ @version\ 2023\n
+comment1.params=origin
+comment1.target=Bus(VehicleSpawner)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ Bus\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment3.params=
+comment3.target=boolean\ checkHitPedestrian()
+comment3.text=\n\ Check\ if\ this\ Bus\ hits\ a\ Pedestrian.\ This\ method\ is\ intentionally\ left\ empty\n\ for\ students\ to\ implement\ their\ own\ pedestrian\ interaction\ logic.\n\n\ @return\ boolean\ true\ if\ a\ pedestrian\ was\ hit,\ false\ otherwise\n
+comment4.params=
+comment4.target=void\ stopMe()
+comment4.text=\n\ Helper\ for\ student\ experiments\ (for\ example,\ bus-stop\ behavior).\n
+numComments=5

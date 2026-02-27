@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Ambulance
+comment0.text=\n\ The\ Ambulance\ subclass\ represents\ an\ emergency\ medical\ vehicle.\n\ Ambulances\ are\ faster\ than\ regular\ cars\ and\ have\ the\ potential\ for\ special\ behaviors\n\ like\ emergency\ lights\ and\ healing\ pedestrians\ (students\ can\ implement\ these\ features).\n\n\ @author\ Jordan\ Cohen\n\ @version\ 2023\n
+comment1.params=origin
+comment1.target=Ambulance(VehicleSpawner)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ Ambulance\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment3.params=
+comment3.target=boolean\ checkHitPedestrian()
+comment3.text=\n\ Check\ if\ this\ Ambulance\ hits\ a\ Pedestrian.\ This\ method\ is\ intentionally\ left\ empty\n\ for\ students\ to\ implement\ their\ own\ pedestrian\ interaction\ logic.\n\n\ @return\ boolean\ true\ if\ a\ pedestrian\ was\ hit,\ false\ otherwise\n
+numComments=4
