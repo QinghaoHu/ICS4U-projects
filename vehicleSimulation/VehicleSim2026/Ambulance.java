@@ -10,9 +10,8 @@ import java.util.List;
  * @author Jordan Cohen
  * @version 2023
  */
-public class Ambulance extends Vehicle
-{
-    public Ambulance(VehicleSpawner origin){
+public class Ambulance extends Vehicle {
+    public Ambulance(VehicleSpawner origin) {
         super(origin); // call the superclass' constructor first
 
         initializeSpeed(2.5);
@@ -24,10 +23,8 @@ public class Ambulance extends Vehicle
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     @Override
-    public void act()
-    {
-        if (checkHitPedestrian())
-        {
+    public void act() {
+        if (checkHitPedestrian()) {
             Pedestrian hittedPedestrian = (Pedestrian) getOneIntersectingObject(Pedestrian.class);
             hittedPedestrian.healMe();
         }

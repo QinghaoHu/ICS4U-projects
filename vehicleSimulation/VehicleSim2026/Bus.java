@@ -10,10 +10,9 @@ import java.util.List;
  * @author Jordan Cohen
  * @version 2023
  */
-public class Bus extends Vehicle
-{
+public class Bus extends Vehicle {
     private int cnt = 0;
-    public Bus(VehicleSpawner origin){
+    public Bus(VehicleSpawner origin) {
         super(origin); // call the superclass' constructor first
 
         // Set up values for Bus
@@ -64,7 +63,7 @@ public class Bus extends Vehicle
         }
         return false;
     }
-    
+
     /**
      * Helper for student experiments (for example, bus-stop behavior).
      */

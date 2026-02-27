@@ -11,8 +11,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Jordan Cohen
  * @version 2023
  */
-public class Pedestrian extends SuperSmoothMover
-{
+public class Pedestrian extends SuperSmoothMover {
     private double speed;
     private double maxSpeed;
     private int direction; // direction is always -1 or 1, for moving down or up, respectively
@@ -33,22 +32,21 @@ public class Pedestrian extends SuperSmoothMover
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     @Override
-    public void act()
-    {
-        if (getWorld() == null){
+    public void act() {
+        if (getWorld() == null) {
             return;
         }
         // Awake is false if the Pedestrian is "knocked down"
-        if (awake){
+        if (awake) {
             // Check in the direction I'm moving vertically for a Vehicle -- and only move if there is no Vehicle in front of me.
             int lookAheadY = (direction * getImage().getHeight()/2) + (int)(direction * speed);
-            if (getOneObjectAtOffset(0, lookAheadY, Vehicle.class) == null){
+            if (getOneObjectAtOffset(0, lookAheadY, Vehicle.class) == null) {
                 setLocation (getX(), getY() + (speed*direction));
             }
-            if (direction == -1 && getY() < 100){
+            if (direction == -1 && getY() < 100) {
                 getWorld().removeObject(this);
                 return;
-            } else if (direction == 1 && getY() > getWorld().getHeight() - 30){
+            } else if (direction == 1 && getY() > getWorld().getHeight() - 30) {
                 getWorld().removeObject(this);
                 return;
             }

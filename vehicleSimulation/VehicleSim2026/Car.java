@@ -7,20 +7,18 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Jordan Cohen
  * @version 2023
  */
-public class Car extends Vehicle
-{
-    
+public class Car extends Vehicle {
+
     public Car(VehicleSpawner origin) {
         super(origin); // call the superclass' constructor
         initializeSpeed(1.5 + ((Math.random() * 30) / 5.0));
         yOffset = 4;
         followingDistance = 6;
-        
+
     }
 
     @Override
-    public void act()
-    {
+    public void act() {
         super.act();
         // make car different - put code here
     }
@@ -32,12 +30,11 @@ public class Car extends Vehicle
     public boolean checkHitPedestrian () {
         int hitCheckOffset = direction * ((int)speed + getImage().getWidth()/2);
         Pedestrian p = (Pedestrian)getOneObjectAtOffset(hitCheckOffset, 0, Pedestrian.class);
-        if (p != null)
-        {
+        if (p != null) {
             p.knockDown();
             return true;
         }
         return false;
-        
+
     }
 }
