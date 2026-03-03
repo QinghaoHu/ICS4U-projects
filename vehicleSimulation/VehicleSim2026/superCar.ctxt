@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=superCar
+comment0.text=\n\ A\ faster\ vehicle\ that\ pauses\ briefly\ after\ hitting\ a\ pedestrian.\n
+comment1.params=origin
+comment1.target=superCar(VehicleSpawner)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=boolean\ checkHitPedestrian()
+numComments=4
