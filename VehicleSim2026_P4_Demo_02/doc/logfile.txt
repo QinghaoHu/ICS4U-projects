@@ -1,0 +1,57 @@
+Class documentation
+<---- javadoc command: ---->
+/usr/lib/jvm/jdk-25.0.2-oracle-x64/bin/javadoc
+-author
+-version
+-nodeprecated
+-protected
+-Xdoclint:none
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+25
+-classpath
+/home/qinghaohu/Downloads/greenfoot/lib/greenfoot.jar:/home/qinghaohu/Downloads/greenfoot/lib/junit-platform-engine-1.5.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/junit-jupiter-params-5.5.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/junit-platform-launcher-1.5.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/junit-platform-suite-api-1.5.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/junit-jupiter-5.5.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/junit-vintage-engine-5.5.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/junit-jupiter-engine-5.5.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/junit-platform-commons-1.5.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/junit-4.12.jar:/home/qinghaohu/Downloads/greenfoot/lib/junit-jupiter-api-5.5.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/hamcrest-core-1.3.jar:/home/qinghaohu/Downloads/greenfoot/lib/opentest4j-1.2.0.jar:/home/qinghaohu/Downloads/greenfoot/lib/bluej.jar:/home/qinghaohu/Downloads/greenfoot/lib/classgraph-4.8.90.jar:/home/qinghaohu/Downloads/greenfoot/lib/diffutils-1.2.1.jar:/home/qinghaohu/Downloads/greenfoot/lib/commons-logging-1.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/jl1.0.1.jar:/home/qinghaohu/Downloads/greenfoot/lib/opencsv-2.4.jar:/home/qinghaohu/Downloads/greenfoot/lib/opencsv-2.3.jar:/home/qinghaohu/Downloads/greenfoot/lib/xom-1.3.9.jar:/home/qinghaohu/Downloads/greenfoot/lib/lang-stride.jar:/home/qinghaohu/Downloads/greenfoot/lib/nsmenufx-3.1.0.jar:/home/qinghaohu/Downloads/greenfoot/lib/wellbehavedfx-0.3.3.jar:/home/qinghaohu/Downloads/greenfoot/lib/guava-33.3.1-jre.jar:/home/qinghaohu/Downloads/greenfoot/lib/failureaccess-1.0.2.jar:/home/qinghaohu/Downloads/greenfoot/lib/simple-png-0.2.0.jar:/home/qinghaohu/Downloads/greenfoot/lib/simple-png-javafx-0.2.0.jar:/home/qinghaohu/Downloads/greenfoot/lib/httpclient-4.5.13.jar:/home/qinghaohu/Downloads/greenfoot/lib/httpmime-4.1.1.jar:/home/qinghaohu/Downloads/greenfoot/lib/httpcore-4.4.13.jar:/home/qinghaohu/Tools/javafx-sdk-25.0.2/lib/javafx.base.jar:/home/qinghaohu/Tools/javafx-sdk-25.0.2/lib/javafx.controls.jar:/home/qinghaohu/Tools/javafx-sdk-25.0.2/lib/javafx.fxml.jar:/home/qinghaohu/Tools/javafx-sdk-25.0.2/lib/javafx.graphics.jar:/home/qinghaohu/Tools/javafx-sdk-25.0.2/lib/javafx.media.jar:/home/qinghaohu/Tools/javafx-sdk-25.0.2/lib/javafx.properties.jar:/home/qinghaohu/Tools/javafx-sdk-25.0.2/lib/javafx.swing.jar:/home/qinghaohu/Tools/javafx-sdk-25.0.2/lib/javafx.web.jar:/home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02
+-d
+/home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/doc
+-encoding
+UTF-8
+-charset
+UTF-8
+/home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/VehicleWorld.java
+<---- end of javadoc command ---->
+Loading source file /home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/VehicleWorld.java...
+Constructing Javadoc information...
+warning: unknown enum constant Tag.Any
+  reason: class file for threadchecker.Tag not found
+warning: unknown enum constant Tag.Any
+warning: unknown enum constant Tag.Any
+warning: unknown enum constant Tag.Any
+Standard Doclet version 25.0.2+10-LTS-69
+Building tree for all the packages and classes...
+Generating /home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/doc/VehicleWorld.html...
+/home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/VehicleWorld.java:14: warning: invalid input: '<'
+ * --> Includes grid <--> lane conversion method
+                     ^
+/home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/VehicleWorld.java:411: warning: invalid input: '<'
+     *                  <=== Start Y
+                        ^
+/home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/VehicleWorld.java:412: warning: invalid input: '<'
+     *  ||||||||||||||  <=== Top Border
+                        ^
+/home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/VehicleWorld.java:415: warning: invalid input: '<'
+     *  |      Y[0]  |  <=== Lane Position (Y) is the middle of the lane
+                        ^
+/home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/VehicleWorld.java:418: warning: invalid input: '<'
+     *  [##] [##] [##| <== spacing ( where the lane lines or borders are )
+                       ^
+/home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/VehicleWorld.java:424: warning: invalid input: '<'
+     *  ||||||||||||||  <== Bottom Border
+                        ^
+Generating /home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/doc/package-summary.html...
+Generating /home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/doc/constant-values.html...
+Generating /home/qinghaohu/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02/doc/index.html...
+The generated documentation contains diagnostic markers for invalid input.
+10 warnings

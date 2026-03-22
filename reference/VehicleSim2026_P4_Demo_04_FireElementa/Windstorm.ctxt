@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Windstorm
+comment0.text=\n\ Write\ a\ description\ of\ class\ Windstorm\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=Windstorm()
+comment2.params=w
+comment2.target=void\ addedToWorld(greenfoot.World)
+comment3.params=
+comment3.target=void\ act()
+comment3.text=\n\ Act\ -\ do\ whatever\ the\ Windstorm\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment4.params=width\ height\ density
+comment4.target=greenfoot.GreenfootImage\ drawRain(int,\ int,\ int)
+comment4.text=\n\ density\ should\ be\ 1-100.\ 100\ will\ be\ almost\ completely\ white\n
+numComments=5

@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Fireball
+comment0.text=\n\ Write\ a\ description\ of\ class\ Fireball\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=target
+comment1.target=Fireball(Vehicle)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ explode()
+comment4.params=
+comment4.target=greenfoot.GreenfootImage\ drawImage()
+numComments=5

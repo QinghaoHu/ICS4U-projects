@@ -1,0 +1,182 @@
+{
+  "undoManifest" : [
+    {
+      "layerIndex" : 0,
+      "index" : 0,
+      "hasVectorData" : false,
+      "type" : "single",
+      "name" : "Mirror Horizontal"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 1,
+      "hasVectorData" : false,
+      "type" : "single",
+      "name" : "Delete"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 2,
+      "hasVectorData" : false,
+      "rasterPatchRect" : {
+        "y" : 142,
+        "x" : 397,
+        "height" : 82,
+        "width" : 189
+      },
+      "type" : "single",
+      "name" : "Delete"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 3,
+      "hasVectorData" : false,
+      "type" : "single",
+      "name" : "Delete"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 4,
+      "hasVectorData" : false,
+      "rasterPatchRect" : {
+        "y" : 134,
+        "x" : 575,
+        "height" : 87,
+        "width" : 198
+      },
+      "type" : "single",
+      "name" : "Delete"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 5,
+      "hasVectorData" : false,
+      "rasterPatchRect" : {
+        "y" : 135,
+        "x" : 531,
+        "height" : 76,
+        "width" : 242
+      },
+      "type" : "single",
+      "name" : "Delete"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 6,
+      "hasVectorData" : false,
+      "rasterPatchRect" : {
+        "y" : 207,
+        "x" : 671,
+        "height" : 14,
+        "width" : 35
+      },
+      "type" : "single",
+      "name" : "Eraser"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 7,
+      "hasVectorData" : false,
+      "rasterPatchRect" : {
+        "y" : 205,
+        "x" : 567,
+        "height" : 11,
+        "width" : 11
+      },
+      "type" : "single",
+      "name" : "Eraser"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 8,
+      "hasVectorData" : false,
+      "rasterPatchRect" : {
+        "y" : 205,
+        "x" : 566,
+        "height" : 11,
+        "width" : 11
+      },
+      "type" : "single",
+      "name" : "Eraser"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 9,
+      "hasVectorData" : false,
+      "rasterPatchRect" : {
+        "y" : 204,
+        "x" : 778,
+        "height" : 11,
+        "width" : 12
+      },
+      "type" : "single",
+      "name" : "Eraser"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 10,
+      "hasVectorData" : false,
+      "rasterPatchRect" : {
+        "y" : 210,
+        "x" : 675,
+        "height" : 11,
+        "width" : 11
+      },
+      "type" : "single",
+      "name" : "Eraser"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 11,
+      "hasVectorData" : false,
+      "rasterPatchRect" : {
+        "y" : 211,
+        "x" : 698,
+        "height" : 11,
+        "width" : 11
+      },
+      "type" : "single",
+      "name" : "Eraser"
+    },
+    {
+      "layerIndex" : 0,
+      "index" : 12,
+      "hasVectorData" : false,
+      "rasterPatchRect" : {
+        "y" : 211,
+        "x" : 669,
+        "height" : 11,
+        "width" : 11
+      },
+      "type" : "single",
+      "name" : "Eraser"
+    },
+    {
+      "hasVectorData" : false,
+      "index" : 13,
+      "type" : "all",
+      "layerCount" : 1,
+      "name" : "Crop"
+    }
+  ],
+  "activeLayerIndex" : 0,
+  "gridSize" : 16,
+  "activeVectorLayerIndex" : 0,
+  "version" : 2,
+  "canvasHeight" : 549,
+  "editingMode" : "Paint",
+  "canvasWidth" : 1176,
+  "paintLayers" : [
+    {
+      "blendMode" : "Normal",
+      "opacity" : 1,
+      "name" : "Background",
+      "isLocked" : false,
+      "isVisible" : true
+    }
+  ],
+  "vectorLayers" : [
+
+  ],
+  "historyIndex" : 14
+}
