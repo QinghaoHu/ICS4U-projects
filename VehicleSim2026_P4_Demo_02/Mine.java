@@ -17,7 +17,7 @@ public class Mine extends Actor {
     }
 
     public void explode() {
-        getWorld().addObject(new Explosion(10, 30, 0.1, new Color(255, 69, 0), 50), this.getX(), this.getY());
+        getWorld().addObject(new Explosion(10, 30, 110,  2, new Color(255, 69, 0), 50), this.getX(), this.getY());
         getWorld().removeObject(this);
     }
 }

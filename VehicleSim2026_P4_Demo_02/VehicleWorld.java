@@ -88,7 +88,7 @@ public class VehicleWorld extends World {
 
         // Set critical variables - will affect lane drawing
         laneCount = 4;
-        laneHeight = 70;
+        laneHeight = 76;
         spaceBetweenLanes = 8;
         splitAtCenter = true;
         twoWayTraffic = true;
@@ -307,7 +307,7 @@ public class VehicleWorld extends World {
         }
 
         // Chance to spawn a Pedestrian
-        if (Greenfoot.getRandomNumber(20) == 0) {
+        if (Greenfoot.getRandomNumber(30) == 0) {
             trySpawnPedestrian();
         }
 

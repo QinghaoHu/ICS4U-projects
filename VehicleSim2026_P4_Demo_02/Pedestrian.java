@@ -134,6 +134,24 @@ public class Pedestrian extends SuperSmoothMover {
         }
     }
 
+    public void knockDownByCar(int direction) {
+        speed = 0;
+        awake = false;
+
+        health -= 50;
+
+        if (health <= 0) {
+            getWorld().removeObject(this);
+            return;
+        }
+
+        setImage(knockDownImage);
+
+        if (direction == -1) {
+            getImage().rotate(180);
+        }
+    }
+
     /**
      * Method to allow a downed Pedestrian to be healed
      */
@@ -158,7 +176,10 @@ public class Pedestrian extends SuperSmoothMover {
         if (health <= 0) {
             getWorld().removeObject(this);
         } else if (health <= 50) {
-            int rand = Greenfoot.getRandomNumber(1);
+            if (!isAwake()) {
+                return;
+            }
+            int rand = Greenfoot.getRandomNumber(2);
             if (rand == 0) {
                 knockDown(1);
             } else {

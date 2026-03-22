@@ -66,7 +66,11 @@ public class MineCleaner extends Vehicle {
             Pedestrian p = (Pedestrian) getOneObjectAtOffset(xOffSet, yOffSets[i], Pedestrian.class);
             if (p != null) {
                 if (!pedestrianCnt.containsKey(p)) {
-                    p.damage(50);
+                    if (p.isAwake()) {
+                        p.knockDownByCar(direction);
+                    } else {
+                        p.damage(50);
+                    }
                     pedestrianCnt.put(p, 1);
                     return true;
                 }

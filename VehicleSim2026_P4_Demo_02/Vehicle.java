@@ -237,7 +237,7 @@ public abstract class Vehicle extends SuperSmoothMover {
     public void damage(int damageAmount) {
         health -= damageAmount;
         if (health <= 0) {
-            getWorld().addObject(new Explosion(5, 10, 0.3, new Color(255, 69, 0), 30), getX(), getY());
+            getWorld().addObject(new Explosion(5, 10, 120, 3, new Color(255, 69, 0), 30), getX(), getY());
             getWorld().removeObject(this);
         }
     }

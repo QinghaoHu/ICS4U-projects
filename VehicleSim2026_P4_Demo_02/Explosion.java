@@ -29,7 +29,7 @@ public class Explosion extends Actor {
         updateImage();
     }
 
-    public Explosion(int size, int sizeIncrease, double time, Color explosionColor, int damage) {
+    public Explosion(int size, int sizeIncrease, int maxSize, double time, Color explosionColor, int damage) {
         this.size = size;
         this.explosionColor = explosionColor;
 
@@ -38,6 +38,7 @@ public class Explosion extends Actor {
         vehicleCnt = new HashMap<Vehicle, Boolean>();
         pedestrianCnt = new HashMap<Pedestrian, Boolean>();
         this.damage = damage;
+        this.maxSize = maxSize;
 
         this.sizeIncrease = sizeIncrease;
 
@@ -54,8 +55,13 @@ public class Explosion extends Actor {
      */
     public void act() {
         // Add your action code here.
-        size += 5;
+        size += sizeIncrease;
         transperency -= transperencyDecrease;
+
+        if (size >= maxSize) {
+            sizeIncrease = 0;
+            damage = 20;
+        }
 
         if (transperency <= 0) {
             getWorld().removeObject(this);
@@ -63,6 +69,7 @@ public class Explosion extends Actor {
             updateImage();
             impactVehicle();
             impactPedestrian();
+            impactMines();
         }
     }
 
@@ -83,6 +90,7 @@ public class Explosion extends Actor {
         for (Vehicle x : intersectingVehicle) {
             if (!vehicleCnt.containsKey(x)) {
                 x.damage(damage);
+                x.maxSpeed /= 2;
                 vehicleCnt.put(x, true);
             }
         }
@@ -99,6 +107,20 @@ public class Explosion extends Actor {
             if (!pedestrianCnt.containsKey(x)) {
                 x.damage(damage);
                 pedestrianCnt.put(x, true);
+            }
+        }
+    }
+
+    private void impactMines() {
+        ArrayList<Mine> intersectingMine = (ArrayList<Mine>) getIntersectingObjects(Mine.class);
+
+        if (intersectingMine.isEmpty()) {
+            return;
+        }
+
+        for (Mine mine: intersectingMine) {
+            if (mine.getWorld() != null) {
+                mine.explode();
             }
         }
     }
