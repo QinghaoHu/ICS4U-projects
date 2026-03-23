@@ -27,8 +27,9 @@ public abstract class Vehicle extends SuperSmoothMover {
     protected int followingDistance; // extra look-ahead distance when checking traffic ahead
     protected int myLaneNumber;
     protected int health;
+    protected int maxHealth;
 
-    public Vehicle(VehicleSpawner origin) {
+    public Vehicle(VehicleSpawner origin, int health) {
         // remember the VehicleSpawner I came from. This includes information
         // about which lane I'm in and which direction I should face
         this.origin = origin;
@@ -51,7 +52,8 @@ public abstract class Vehicle extends SuperSmoothMover {
         // it's starting position once. Vehicles are removed and re-added
         // to the world (instantly, not visibly) by the z-sort, and without this,
         // they would continue to return to their start points.
-        health = 200;
+        this.health = health;
+        maxHealth = health;
     }
 
     protected abstract boolean checkHitPedestrian();

@@ -1,6 +1,8 @@
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
 
+import java.util.ArrayList;
+
 /**
  * A Pedestrian that tries to walk across the street.
  * Pedestrians move vertically across lanes, avoiding vehicles when possible.
@@ -76,8 +78,12 @@ public class Pedestrian extends SuperSmoothMover {
                 return;
             }
 
-            changeFrame();
-
+            ArrayList<Vehicle> p = (ArrayList<Vehicle>) getIntersectingObjects(Vehicle.class);
+            if (p.isEmpty()) {
+                changeFrame();
+            } else {
+                sleepFor(30);
+            }
         }
     }
 

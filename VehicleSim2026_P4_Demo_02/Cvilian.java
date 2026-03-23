@@ -14,8 +14,8 @@ public class Cvilian extends Pedestrian
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public Cvilian(int direction) {
-        this.direction = direction;
         super(direction, "civilian-move/civilian-move_", new GreenfootImage("civilianKnockDown.png"));
+        this.direction = direction;
     }
 
     public void act()

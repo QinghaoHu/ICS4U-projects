@@ -10,7 +10,7 @@ public class MineCleaner extends Vehicle {
     HashMap<Pedestrian, Integer> pedestrianCnt;
 
     public MineCleaner(VehicleSpawner origin) {
-        super(origin);
+        super(origin, 150);
         initializeSpeed(1 + ((Math.random() * 10) / 5.0));
         mineToRemove = null;
         sleepCount = 0;

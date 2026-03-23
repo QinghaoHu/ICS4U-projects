@@ -9,8 +9,8 @@ public class MineDroper extends Pedestrian {
     protected int [] lanePosition;
 
     public MineDroper(int direction, int [] lanePosition) {
-        this.direction = direction;
         super(direction, "move/survivor-move_knife_", new GreenfootImage("soilderKnock-removebg.png"));
+        this.direction = direction;
         haveDropedMine = new boolean[] {false, false, false, false};
         this.lanePosition = lanePosition;
     }
