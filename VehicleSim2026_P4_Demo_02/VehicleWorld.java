@@ -78,7 +78,7 @@ public class VehicleWorld extends World {
         // always be on top of everything else, then Vehicles (of all
         // sub class types) and after that, all other classes not listed
         // will be displayed in random order. 
-        setPaintOrder(Effect.class, Vehicle.class, Pedestrian.class);
+        setPaintOrder(Explosion.class, Vehicle.class, Pedestrian.class);
 
         // set up background -- If you change this, make 100% sure
         // that your chosen image is the same size as the World

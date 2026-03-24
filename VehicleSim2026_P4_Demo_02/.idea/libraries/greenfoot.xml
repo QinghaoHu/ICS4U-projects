@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="greenfoot">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Downloads/greenfoot/lib/greenfoot.jar!/" />
+      <root url="jar:///Applications/Greenfoot.app/Contents/Java/greenfoot.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

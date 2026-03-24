@@ -4,7 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf416237-f19a-4719-a2f2-21b3c3fa0364" name="更改" comment="" />
+    <list default="true" id="cf416237-f19a-4719-a2f2-21b3c3fa0364" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/bluej.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/greenfoot.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/greenfoot.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ActorContent.class" beforeDir="false" afterPath="$PROJECT_DIR$/ActorContent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ambulance.class" beforeDir="false" afterPath="$PROJECT_DIR$/Ambulance.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cvilian.class" beforeDir="false" afterPath="$PROJECT_DIR$/Cvilian.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Effect.class" beforeDir="false" afterPath="$PROJECT_DIR$/Effect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Explosion.class" beforeDir="false" afterPath="$PROJECT_DIR$/Explosion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Explosion.java" beforeDir="false" afterPath="$PROJECT_DIR$/Explosion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HANDOFF.md" beforeDir="false" afterPath="$PROJECT_DIR$/HANDOFF.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mine.class" beforeDir="false" afterPath="$PROJECT_DIR$/Mine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MineCleaner.class" beforeDir="false" afterPath="$PROJECT_DIR$/MineCleaner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MineDroper.class" beforeDir="false" afterPath="$PROJECT_DIR$/MineDroper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pedestrian.class" beforeDir="false" afterPath="$PROJECT_DIR$/Pedestrian.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.TXT" beforeDir="false" afterPath="$PROJECT_DIR$/README.TXT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SuperSmoothMover.class" beforeDir="false" afterPath="$PROJECT_DIR$/SuperSmoothMover.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vehicle.class" beforeDir="false" afterPath="$PROJECT_DIR$/Vehicle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VehicleSpawner.class" beforeDir="false" afterPath="$PROJECT_DIR$/VehicleSpawner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VehicleWorld.class" beforeDir="false" afterPath="$PROJECT_DIR$/VehicleWorld.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VehicleWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/VehicleWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Windstorm.class" beforeDir="false" afterPath="$PROJECT_DIR$/Windstorm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codex.md" beforeDir="false" afterPath="$PROJECT_DIR$/codex.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.greenfoot" beforeDir="false" afterPath="$PROJECT_DIR$/project.greenfoot" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +41,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4,
@@ -30,13 +58,17 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/qinghaohu/Downloads/greenfoot/lib/greenfoot.jar",
-    "project.structure.last.edited": "库",
-    "project.structure.proportion": "0.0",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/huqinghao/cslearning/ICS4U-projects/VehicleSim2026_P4_Demo_02",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "configurable.group.appearance"
   }
 }]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
       <changelist id="cf416237-f19a-4719-a2f2-21b3c3fa0364" name="更改" comment="" />

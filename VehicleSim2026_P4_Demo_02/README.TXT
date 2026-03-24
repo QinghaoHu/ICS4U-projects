@@ -11,7 +11,7 @@ and MineCleaner vehicles can stop to remove those mines. The project is being
 extended from the original classroom scenario into a custom game/simulation.
 
 Current Version:
-2026-03-20 documentation refresh
+2026-03-24 documentation refresh
 
 How To Start This Project:
 1. Open the project folder in Greenfoot.
@@ -24,10 +24,11 @@ Authors:
 
 User Instructions:
 - Click `Run` in Greenfoot to start the simulation.
-- Vehicles spawn automatically in road lanes.
+- Vehicles spawn automatically in road lanes as `MineCleaner` and `Ambulance` units.
 - Pedestrians spawn automatically from the top or bottom of the map.
 - Some pedestrians are `MineDroper` units that can place mines on the road.
 - `MineCleaner` vehicles remove mines after stopping on top of them.
+- `Ambulance` vehicles heal knocked-down pedestrians they reach.
 - Background obstacles are enforced by `background_collision.png`, so pedestrians
   cannot spawn or move through blocked scenery.
 
@@ -35,11 +36,15 @@ Project Structure:
 - `VehicleWorld.java`: world setup, spawning, collision-mask checks, z-sort
 - `Vehicle.java`: shared lane-driving logic for vehicles
 - `MineCleaner.java`: vehicle that removes mines
+- `Ambulance.java`: vehicle that heals downed pedestrians
 - `Pedestrian.java`: shared pedestrian movement and animation base
 - `MineDroper.java`: animated mine-dropping pedestrian
 - `Cvilian.java`: animated civilian pedestrian
 - `Mine.java`: mine actor placed on road lanes
+- `Explosion.java`: area-damage effect spawned by exploding mines and destroyed vehicles
 - `Windstorm.java`: world effect that pushes pedestrians sideways
+- `VehicleSpawner.java`: lane spawn points and lane metadata
+- `SuperSmoothMover.java`: precise-movement base class for moving actors
 - `images/`: runtime assets
 - `scripts/generate_civilian_move_frames.py`: regenerates civilian animation frames
 

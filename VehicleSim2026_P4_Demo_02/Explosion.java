@@ -90,7 +90,6 @@ public class Explosion extends Actor {
         for (Vehicle x : intersectingVehicle) {
             if (!vehicleCnt.containsKey(x)) {
                 x.damage(damage);
-                x.maxSpeed -= 0.1;
                 vehicleCnt.put(x, true);
             }
         }

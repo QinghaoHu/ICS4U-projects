@@ -5,6 +5,7 @@
 This repository is a Greenfoot Java scenario built around a lane-based road simulation with custom gameplay elements:
 
 - `MineCleaner` vehicles drive horizontally and remove mines from lanes.
+- `Ambulance` vehicles drive horizontally and heal knocked-down pedestrians.
 - `MineDroper` pedestrians walk vertically and may place mines.
 - `Cvilian` pedestrians walk vertically without dropping mines.
 - `Windstorm` can push pedestrians sideways.
@@ -45,13 +46,15 @@ Assumptions:
 ### Spawn Flow
 
 - Vehicles:
-  - Each act has a `1 / (laneCount * 5)` chance to attempt a vehicle spawn.
+  - Each act has a `1 / (laneCount * 7)` chance to attempt a vehicle spawn.
   - A random lane is chosen.
   - Spawn is blocked if the lane spawner is still touching a vehicle.
-  - Spawned vehicle type is always `MineCleaner`.
+  - Spawned vehicle mix in `VehicleWorld.spawn()` is currently:
+    - about 60% `MineCleaner`
+    - about 40% `Ambulance`
 
 - Pedestrians:
-  - Each act has a `1 / 20` chance to attempt a pedestrian spawn.
+  - Each act has a `1 / 30` chance to attempt a pedestrian spawn.
   - The spawn side is chosen randomly from top or bottom.
   - The world retries up to `MAX_PEDESTRIAN_SPAWN_ATTEMPTS` times to find a valid x-position.
   - Spawned type is selected in `VehicleWorld.createPedestrian(int)`:
@@ -95,6 +98,16 @@ Important detail:
 Important detail:
 
 - Mine-removal timing and vehicle-following behavior can interact in ways that allow visual overlap if follower logic assumes the front vehicle is still moving.
+
+### `Ambulance`
+
+- Extends `Vehicle`
+- Heals knocked-down pedestrians it intersects
+- Uses the base vehicle movement and mine-trigger behavior
+
+Important detail:
+
+- `Ambulance.checkHitPedestrian()` only heals pedestrians that are already down, so awake pedestrians are still handled by the normal vehicle repel path.
 
 ### `Pedestrian`
 
@@ -185,3 +198,4 @@ This contract matters because every pedestrian subclass must pass both the anima
 - If you are adjusting walking or animation behavior, start in `Pedestrian.java` plus the relevant subclass.
 - If you are adjusting civilian animation art, rerun `scripts/generate_civilian_move_frames.py`.
 - If you are debugging vehicle overlap during mine removal, inspect both `MineCleaner.act()` and `Vehicle.drive()`.
+- If you are adjusting healing behavior, inspect `Ambulance.java` and `Pedestrian.healMe()`.

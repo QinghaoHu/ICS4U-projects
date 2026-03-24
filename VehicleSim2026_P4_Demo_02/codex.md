@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repository is a Greenfoot Java scenario built around lane-based vehicles and vertically moving pedestrians. The current gameplay includes mine-dropping pedestrians, mine-removing vehicles, a civilian pedestrian variant, and a background collision mask for blocked scenery.
+This repository is a Greenfoot Java scenario built around lane-based vehicles and vertically moving pedestrians. The current gameplay includes mine-dropping pedestrians, mine-removing vehicles, ambulance support vehicles, a civilian pedestrian variant, and a background collision mask for blocked scenery.
 
 This file is the short project memory for future coding sessions. For deeper developer context, read `HANDOFF.md`.
 
@@ -13,7 +13,8 @@ This file is the short project memory for future coding sessions. For deeper dev
 - Background: `images/background.png`
 - Pedestrian collision mask: `images/background_collision.png`
 - World is unbounded
-- Paint order: `Effect`, then `Vehicle`, then `Pedestrian`
+- Explicit paint order: `Explosion`, then `Vehicle`, then `Pedestrian`
+- `VehicleWorld` also re-runs z-sort every act for non-`Effect` actors
 
 ## Important Source Files
 
@@ -21,6 +22,7 @@ This file is the short project memory for future coding sessions. For deeper dev
 - `VehicleSpawner.java`: lane spawn points and lane metadata
 - `Vehicle.java`: shared vehicle drive and follow logic
 - `MineCleaner.java`: vehicle that stops and removes mines
+- `Ambulance.java`: vehicle that heals knocked-down pedestrians
 - `Pedestrian.java`: shared pedestrian movement, animation, and knockdown behavior
 - `MineDroper.java`: mine-dropping pedestrian subclass
 - `Cvilian.java`: civilian pedestrian subclass
@@ -31,9 +33,11 @@ This file is the short project memory for future coding sessions. For deeper dev
 ## Current Gameplay
 
 - There are 4 road lanes with split two-way traffic.
-- Vehicles are always `MineCleaner`.
-- Each act has a `1 / 20` chance to attempt a vehicle spawn.
-- Each act has a `1 / 20` chance to attempt a pedestrian spawn.
+- Vehicle spawning currently mixes:
+  - about 60% `MineCleaner`
+  - about 40% `Ambulance`
+- Each act has a `1 / (laneCount * 7)` chance to attempt a vehicle spawn.
+- Each act has a `1 / 30` chance to attempt a pedestrian spawn.
 - `VehicleWorld.createPedestrian(int)` currently mixes:
   - about 40% `MineDroper`
   - about 60% `Cvilian`
