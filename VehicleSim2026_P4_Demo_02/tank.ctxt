@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=tank
+comment1.params=origin
+comment1.target=tank(VehicleSpawner)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=boolean\ checkHitPedestrian()
+comment4.params=
+comment4.target=void\ removeObject()
+numComments=5

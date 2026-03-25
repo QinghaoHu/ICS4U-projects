@@ -17,7 +17,6 @@ public class Ambulance extends Vehicle {
     public Ambulance(VehicleSpawner origin) {
         super(origin, 100);
         initializeSpeed(1.5 + ((Math.random() * 10) / 5.0));
-        health = 100;
     }
 
     public void act() {

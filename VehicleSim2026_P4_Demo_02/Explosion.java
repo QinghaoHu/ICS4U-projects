@@ -60,7 +60,7 @@ public class Explosion extends Actor {
 
         if (size >= maxSize) {
             sizeIncrease = 0;
-            damage = 20;
+            damage = 0;
         }
 
         if (transperency <= 0) {

@@ -28,6 +28,15 @@ public abstract class Vehicle extends SuperSmoothMover {
     protected int myLaneNumber;
     protected int health;
     protected int maxHealth;
+    protected int [] changingLaneDirection = {1, -1, 1, -1};
+    protected int [] changingLaneAngle = {-1, 1, 1, -1};
+    protected boolean isChangingLane;
+    protected int targetY;
+    protected int fromY;
+    protected int turnAngle;
+    protected int changeLaneCoolDown;
+    protected int maxchangeLaneCoolDown;
+    protected int cnt = 100;
 
     public Vehicle(VehicleSpawner origin, int health) {
         // remember the VehicleSpawner I came from. This includes information
@@ -54,6 +63,9 @@ public abstract class Vehicle extends SuperSmoothMover {
         // they would continue to return to their start points.
         this.health = health;
         maxHealth = health;
+
+        isChangingLane = false;
+        maxchangeLaneCoolDown = 60;
     }
 
     protected abstract boolean checkHitPedestrian();
@@ -89,6 +101,19 @@ public abstract class Vehicle extends SuperSmoothMover {
      * - subclass' act() method can invoke super.act() to call this, as is demonstrated here.
      */
     public void act() {
+        if (changeLaneCoolDown > 0) changeLaneCoolDown--;
+        if (isChangingLane) {
+//            setLocation(this.getX(), this.getY() + changingLaneDirection[myLaneNumber] * 4);
+            if ((fromY < targetY && this.getY() >= targetY) || (fromY > targetY && this.getY() <= targetY)) {
+                isChangingLane = false;
+//                getImage().rotate(-turnAngle);
+                turn(-turnAngle);
+                setLocation(this.getX(), targetY);
+                targetY = 0;
+                myLaneNumber += changingLaneDirection[myLaneNumber];
+                changeLaneCoolDown = maxchangeLaneCoolDown;
+            }
+        }
 
         drive();
         if (getWorld() == null) {
@@ -102,7 +127,7 @@ public abstract class Vehicle extends SuperSmoothMover {
         }
 
         if (checkEdge()) {
-            getWorld().removeObject(this);
+            removeObject();
             return;
         }
 
@@ -111,6 +136,14 @@ public abstract class Vehicle extends SuperSmoothMover {
         }
 
         trigerMines();
+
+        if (getWorld() == null) {
+            return;
+        }
+
+        if (isChangingLane) {
+            crashCar();
+        }
     }
 
     /**
@@ -214,12 +247,23 @@ public abstract class Vehicle extends SuperSmoothMover {
         // Ahead is a generic vehicle - we don't know what type BUT
         // since every Vehicle "promises" to have a getSpeed() method,
         // we can call that on any vehicle to find out it's speed
-        int lookAheadDistance = direction * (int) (speed + getImage().getWidth() / 2 + followingDistance);
-        Vehicle ahead = (Vehicle) getOneObjectAtOffset(lookAheadDistance, 0, Vehicle.class);
+        int lookAheadDistance0 = direction * (int) (speed * 15 + getImage().getWidth() / 2 + followingDistance);
+        Vehicle ahead0 = (Vehicle) getOneObjectAtOffset(lookAheadDistance0, 0, Vehicle.class);
+        int lookAheadDistance1 = direction * (int) (speed + getImage().getWidth() / 2 + followingDistance);
+        Vehicle ahead1 = (Vehicle) getOneObjectAtOffset(lookAheadDistance1, 0, Vehicle.class);
         double otherVehicleSpeed = -1;
-        if (ahead != null) {
+        if (ahead0 != null || ahead1 != null) {
+            if (!isChangingLane) {
+                if (changeLine()) {
+                    return;
+                }
+            }
+            if (ahead0 != null) {
+                otherVehicleSpeed = ahead0.getSpeed();
+            } else if (ahead1 != null) {
+                otherVehicleSpeed = ahead1.getSpeed();
+            }
 
-            otherVehicleSpeed = ahead.getSpeed();
         }
 
         // Various things that may slow down driving speed 
@@ -240,7 +284,7 @@ public abstract class Vehicle extends SuperSmoothMover {
         health -= damageAmount;
         if (health <= 0) {
             getWorld().addObject(new Explosion(5, 10, 120, 3, new Color(255, 69, 0), 30), getX(), getY());
-            getWorld().removeObject(this);
+            removeObject();
         }
     }
 
@@ -253,6 +297,22 @@ public abstract class Vehicle extends SuperSmoothMover {
         }
     }
 
+    protected void crashCar() {
+        ArrayList<Vehicle> touchingVehicle = (ArrayList<Vehicle>) getIntersectingObjects(Vehicle.class);
+        if (touchingVehicle.isEmpty()) {
+            return;
+        }
+        for (Vehicle v : touchingVehicle) {
+            if (!v.isChangingLane) {
+                continue;
+            }
+            getWorld().addObject(new Explosion(1, 10, 50, 0.4, Color.BLUE, 0), v.getX(), v.getY());
+            v.removeObject();
+        }
+        getWorld().addObject(new Explosion(1, 10, 50, 0.4, Color.BLUE, 0), this.getX(), this.getY());
+        removeObject();
+    }
+
     /**
      * An accessor that can be used to get this Vehicle's speed. Used, for example, when a vehicle wants to see
      * if a faster vehicle is ahead in the lane.
@@ -261,5 +321,34 @@ public abstract class Vehicle extends SuperSmoothMover {
         if (moving)
             return speed;
         return 0;
+    }
+
+    private boolean changeLine() {
+        if (changeLaneCoolDown != 0) {
+            return false;
+        }
+        laneChecker checker = new laneChecker(getImage().getWidth());
+        getWorld().addObject(checker, this.getX(), this.getY() + changingLaneDirection[myLaneNumber] * 84);
+
+        if (checker.isTouching()) {
+            return false;
+        }
+
+        targetY = this.getY() + changingLaneDirection[myLaneNumber] * 84;
+        isChangingLane = true;
+
+        turnAngle = (int)Math.toDegrees(Math.atan2((double)84, speed * 21)) * changingLaneAngle[myLaneNumber];
+//        getImage().rotate(turnAngle);
+        turn(turnAngle);
+        fromY = this.getY();
+        return true;
+    }
+
+    public void stop() {
+        moving = false;
+    }
+
+    public void removeObject() {
+        getWorld().removeObject(this);
     }
 }

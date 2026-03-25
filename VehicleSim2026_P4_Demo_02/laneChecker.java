@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -15,15 +16,11 @@ public class laneChecker extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     private int width;
-    private int height;
-    private int xPosition;
-    private int yPosition;
 
-    public laneChecker(int width, int height, int xPosition, int yPosition) {
+    public laneChecker(int width) {
         this.width = width;
-        this.height = height;
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
+        GreenfootImage image = new GreenfootImage((int)(1.7 * width), 72);
+        setImage(image);
     }
 
     public void act()
@@ -32,6 +29,17 @@ public class laneChecker extends Actor
     }
 
     private ArrayList<Vehicle> getObjects() {
-        
+        ArrayList<Vehicle> touchingVehicle = (ArrayList<Vehicle>) getIntersectingObjects(Vehicle.class);
+        return  touchingVehicle;
+    }
+
+    public boolean isTouching() {
+        ArrayList<Vehicle> p = getObjects();
+        if (p.isEmpty()) {
+            getWorld().removeObject(this);
+            return false;
+        }
+        getWorld().removeObject(this);
+        return true;
     }
 }

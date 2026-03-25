@@ -2,73 +2,69 @@
 
 ## Purpose
 
-This repository is a Greenfoot Java scenario built around lane-based vehicles and vertically moving pedestrians. The current gameplay includes mine-dropping pedestrians, mine-removing vehicles, ambulance support vehicles, a civilian pedestrian variant, and a background collision mask for blocked scenery.
+This repository is a Greenfoot Java scenario built around lane-based vehicles and vertically moving pedestrians. The active gameplay has moved to armed `tank` vehicles with separate rotating `tankTower` actors that target awake `MineDroper` pedestrians.
 
-This file is the short project memory for future coding sessions. For deeper developer context, read `HANDOFF.md`.
+This file is the short project memory for future coding sessions. For deeper maintainer context, read `HANDOFF.md`.
 
 ## Current Runtime Truth
 
-- Start world: `VehicleWorld`
-- World size: `1024 x 800`
-- Background: `images/background.png`
-- Pedestrian collision mask: `images/background_collision.png`
-- World is unbounded
-- Explicit paint order: `Explosion`, then `Vehicle`, then `Pedestrian`
+- start world: `VehicleWorld`
+- world size: `1024 x 800`
+- background: `images/background.png`
+- pedestrian collision mask: `images/background_collision.png`
+- world is unbounded
+- explicit paint order: `Explosion`, `TankShell`, `tower`, `Vehicle`, `Pedestrian`
 - `VehicleWorld` also re-runs z-sort every act for non-`Effect` actors
+- an FPS `Counter` is shown on screen
 
-## Important Source Files
+## Active Gameplay
 
-- `VehicleWorld.java`: world setup, lane creation, spawn loop, z-sort, collision-mask checks
-- `VehicleSpawner.java`: lane spawn points and lane metadata
-- `Vehicle.java`: shared vehicle drive and follow logic
-- `MineCleaner.java`: vehicle that stops and removes mines
-- `Ambulance.java`: vehicle that heals knocked-down pedestrians
-- `Pedestrian.java`: shared pedestrian movement, animation, and knockdown behavior
-- `MineDroper.java`: mine-dropping pedestrian subclass
-- `Cvilian.java`: civilian pedestrian subclass
-- `Mine.java`: static mine actor
-- `Windstorm.java`: pedestrian wind effect
-- `SuperSmoothMover.java`: precise movement base class
-
-## Current Gameplay
-
-- There are 4 road lanes with split two-way traffic.
-- Vehicle spawning currently mixes:
-  - about 60% `MineCleaner`
-  - about 40% `Ambulance`
-- Each act has a `1 / (laneCount * 7)` chance to attempt a vehicle spawn.
-- Each act has a `1 / 30` chance to attempt a pedestrian spawn.
+- there are 4 road lanes with split two-way traffic
+- vehicle spawning currently creates only `tank`
+- vehicle spawn chance is `1 / (laneCount * 10)`
+- pedestrian spawn chance is `1 / 30`
 - `VehicleWorld.createPedestrian(int)` currently mixes:
   - about 40% `MineDroper`
   - about 60% `Cvilian`
-- Pedestrian spawn positions are retried up to `MAX_PEDESTRIAN_SPAWN_ATTEMPTS` times if blocked by the collision mask.
-- `MAX_PEDESTRIANS` is defined but not currently enforced.
+- pedestrian spawn positions are retried up to `MAX_PEDESTRIAN_SPAWN_ATTEMPTS` times if blocked by the collision mask
+- `MAX_PEDESTRIANS` is defined but not enforced
+
+## Tank Combat
+
+- `tank` creates a paired `tankTower` in `addedToWorld(...)`
+- `tankTower` tracks the nearest awake `MineDroper`
+- tower turn rate is capped at `3` degrees per act
+- firing cooldown is currently `240` acts
+- `TankShell` moves at speed `10`, deals `100` damage, leaves a `TrailPiece`, and can hit other vehicles and pedestrians
+
+## Important Source Files
+
+- `VehicleWorld.java`: world setup, lane creation, spawn loop, z-sort, collision-mask checks, FPS counter
+- `Vehicle.java`: shared vehicle drive and follow logic
+- `tank.java`: active spawned combat vehicle
+- `tower.java`: tower follow and target-acquisition base
+- `tankTower.java`: rotation and firing logic
+- `TankShell.java`: projectile and hit logic
+- `Pedestrian.java`: shared pedestrian movement, animation, and damage state
+- `MineDroper.java`: mine-dropping pedestrian subclass
+- `Cvilian.java`: civilian pedestrian subclass
 
 ## Asset Notes
 
-- `MineCleaner` still depends on Greenfoot image metadata in `project.greenfoot`.
-- Soldier walk frames live in `images/move/`.
-- Civilian walk frames live in `images/civilian-move/`.
-- Civilian frames are generated from `images/civilian.png` by `scripts/generate_civilian_move_frames.py`.
-- Civilian knockdown art is `images/civilianKnockDown.png`.
+- `project.greenfoot` still provides the default `tankBody.png` image mapping for `tank`
+- active tower art is `images/tankTower.png`
+- edited tank art backups are in `images/backup/`
+- `TrailPiece` is now active for tank shell trails
 
 ## High-Risk Areas
 
-- `Pedestrian` constructor changes affect every pedestrian subclass.
-- Constructor order matters: `super(...)` must be the first statement.
-- Vehicle overlap bugs during mine removal are most likely in `MineCleaner.act()` plus `Vehicle.drive()`.
-- Greenfoot project metadata and source code both affect runtime behavior.
-
-## Reading Guide
-
-- Spawn behavior: `VehicleWorld.java`
-- Pedestrian logic or animation: `Pedestrian.java`, then subclass
-- Vehicle following or overlap: `Vehicle.java`, then `MineCleaner.java`
-- Asset regeneration: `scripts/generate_civilian_move_frames.py`
-- Collision-mask behavior: `pedestrian-background-collision.md`
+- `Pedestrian` constructor changes affect every pedestrian subclass
+- `tank.checkHitPedestrian()` removes intersecting pedestrians directly
+- `TankShell` friendly fire is intentional current behavior
+- Greenfoot metadata and source code both affect runtime behavior
 
 ## Known Realities
 
-- Naming is inconsistent: `MineDroper` and `Cvilian` are both misspelled.
-- The project mixes source, compiled classes, Greenfoot metadata, generated docs, and assets in one directory.
-- `README.TXT` is now the quickstart, `HANDOFF.md` is the detailed maintainer guide, and this file should remain short.
+- naming is inconsistent: `MineDroper`, `Cvilian`, `tank`, and `tower`
+- the project mixes source, compiled classes, metadata, generated docs, and assets in one directory
+- `README.TXT` is the quickstart, `HANDOFF.md` is the detailed maintainer guide, and this file should remain short

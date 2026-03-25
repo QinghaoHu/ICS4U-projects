@@ -87,7 +87,7 @@ public class MineCleaner extends Vehicle {
         for (int i = 0; i < 5; i++) {
             Mine p = (Mine) getOneObjectAtOffset(xOffSet, yOffSets[i], Mine.class);
             if (p != null) {
-                sleepCount = 60;
+                sleepCount = 30;
                 speed = 0;
                 mineToRemove = p;
                 return;

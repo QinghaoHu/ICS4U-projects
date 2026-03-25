@@ -60,6 +60,10 @@ public class VehicleWorld extends World {
     private int rainCountdown;
     private boolean isRaining;
 
+    private static Counter fpsCounter;
+    private long lastTime = System.currentTimeMillis();
+    private int frames;
+
     /**
      * Constructor for objects of class MyWorld.
      * <p>
@@ -78,7 +82,7 @@ public class VehicleWorld extends World {
         // always be on top of everything else, then Vehicles (of all
         // sub class types) and after that, all other classes not listed
         // will be displayed in random order. 
-        setPaintOrder(Explosion.class, Vehicle.class, Pedestrian.class);
+        setPaintOrder(Explosion.class, TankShell.class, tower.class, Vehicle.class, Pedestrian.class);
 
         // set up background -- If you change this, make 100% sure
         // that your chosen image is the same size as the World
@@ -113,6 +117,22 @@ public class VehicleWorld extends World {
         // Re-apply after drawing lane graphics onto the background image.
         // In Greenfoot, setBackground(...) copies the current image state.
         setBackground(background);
+        prepare();
+
+        frames = 0;
+        fpsCounter = new Counter("FPS: ");
+        addObject(fpsCounter, 100, 100);
+
+    }
+
+    private void countFPS() {
+        frames++;
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastTime >= 1000) {
+            fpsCounter.setValue(frames);
+            frames = 0;
+            lastTime = currentTime;
+        }
     }
 
     public static int[] prepareLanes(World world, GreenfootImage target, VehicleSpawner[] spawners, int startY, int heightPerLane, int lanes, int spacing, boolean twoWay, boolean centreSplit, int centreSpacing) {
@@ -138,12 +158,12 @@ public class VehicleWorld extends World {
             // calculate the position for the lane
             lanePositions[i] = startY + spacing + (i * (heightPerLane + spacing)) + heightOffset;
 
-//            // draw lane
-//            target.setColor(GREY_STREET);
-//            // the lane body
-//            target.fillRect (0, lanePositions[i] - heightOffset, target.getWidth(), heightPerLane);
-//            // the lane spacing - where the white or yellow lines will get drawn
-//            target.fillRect(0, lanePositions[i] + heightOffset, target.getWidth(), spacing);
+            //            // draw lane
+            //            target.setColor(GREY_STREET);
+            //            // the lane body
+            //            target.fillRect (0, lanePositions[i] - heightOffset, target.getWidth(), heightPerLane);
+            //            // the lane spacing - where the white or yellow lines will get drawn
+            //            target.fillRect(0, lanePositions[i] + heightOffset, target.getWidth(), spacing);
 
             // Place spawners and draw lines depending on whether its 2 way and centre split
             if (twoWay && centreSplit) {
@@ -291,6 +311,7 @@ public class VehicleWorld extends World {
     public void act() {
         spawn();
         zSort(getObjects(Actor.class), this);
+        countFPS();
     }
 
     private void spawn() {
@@ -298,16 +319,20 @@ public class VehicleWorld extends World {
         if (Greenfoot.getRandomNumber(laneCount * 7) == 0) {
             int lane = Greenfoot.getRandomNumber(laneCount);
             if (!laneSpawners[lane].isTouchingVehicle()) {
-                if (Greenfoot.getRandomNumber(10) <= 5) {
+                int rand = Greenfoot.getRandomNumber(10);
+                if (rand <= 3) {
                     addObject(new MineCleaner(laneSpawners[lane]), 0, 0);
-                } else {
+                } else if (rand < 9){
                     addObject(new Ambulance(laneSpawners[lane]), 0, 0);
+                } else {
+                    addObject(new tank(laneSpawners[lane]), 0, 0);
                 }
+
             }
         }
 
         // Chance to spawn a Pedestrian
-        if (Greenfoot.getRandomNumber(30) == 0) {
+        if (Greenfoot.getRandomNumber(15) == 0) {
             trySpawnPedestrian();
         }
 
@@ -358,7 +383,7 @@ public class VehicleWorld extends World {
      * specific Pedestrian subclass.
      */
     private Pedestrian createPedestrian(int direction) {
-        if (Greenfoot.getRandomNumber(10) <= 3) {
+        if (Greenfoot.getRandomNumber(10) < 6) {
             return new MineDroper(direction, lanePositionsY);
         }
         return new Cvilian(direction);
@@ -435,6 +460,13 @@ public class VehicleWorld extends World {
         return -1;
     }
 
+    /**
+     * Prepare the world for the start of the program.
+     * That is: create the initial objects and add them to the world.
+     */
+    private void prepare()
+    {
+    }
 }
 
 /**

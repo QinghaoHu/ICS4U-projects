@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="greenfoot">
+  <library name="bluej">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/greenfoot.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bluej.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
