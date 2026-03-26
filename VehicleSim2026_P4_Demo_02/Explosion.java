@@ -69,7 +69,7 @@ public class Explosion extends Actor {
             updateImage();
             impactVehicle();
             impactPedestrian();
-            impactMines();
+//            impactMines();
         }
     }
 

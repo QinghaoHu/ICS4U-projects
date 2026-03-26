@@ -2,12 +2,14 @@ import greenfoot.Color;
 import greenfoot.GreenfootImage;
 
 public class TankShell extends SuperSmoothMover {
-    private static int speed = 10;
-    private static int DAMAGE = 100;
+    private static int speed;
+    private static int damage;
+    private Color explosionColor;
     private int angle;
     private  Vehicle ownerVehicle;
+    private int type;
 
-    public TankShell(int angle, Vehicle ownerVehicle) {
+    public TankShell(int angle, Vehicle ownerVehicle, int type) {
         this.ownerVehicle = ownerVehicle;
         GreenfootImage image = new GreenfootImage(16, 16);
         image.setColor(new Color(212, 175, 55));
@@ -19,9 +21,18 @@ public class TankShell extends SuperSmoothMover {
         setRotation(angle);
 
         this.angle = angle;
+        this.type = type;
+        if (type == 1) {
+            speed = 15;
+            damage = 3;
+            explosionColor = Color.ORANGE;
+        } else {
+            speed = 10;
+            damage = 100;
+            explosionColor = Color.RED;
+        }
     }
 
-    @Override
     public void act() {
         if (getWorld() == null) {
             return;
@@ -33,14 +44,12 @@ public class TankShell extends SuperSmoothMover {
 
         Vehicle hitVehicle = findVehicleHit();
         if (hitVehicle != null) {
-            hitVehicle.damage(DAMAGE);
             explodeRemove();
             return;
         }
 
         Pedestrian hitPedestrian = (Pedestrian) getOneIntersectingObject(Pedestrian.class);
-        if (hitPedestrian != null) {
-            hitPedestrian.damage(DAMAGE);
+        if (hitPedestrian != null && hitPedestrian.isAwake()) {
             explodeRemove();
             return;
         }
@@ -60,7 +69,10 @@ public class TankShell extends SuperSmoothMover {
     }
 
     private void explodeRemove() {
-        getWorld().addObject(new Explosion(1, 10, 50, 0.4, Color.RED, 100), getX(), getY());
+        if (type == 1) {
+            getWorld().addObject(new Explosion(1, 5, 20, 0.2, explosionColor, damage), getX(), getY());
+        }
+        getWorld().addObject(new Explosion(1, 10, 50, 0.4, explosionColor, damage), getX(), getY());
         getWorld().removeObject(this);
     }
 }

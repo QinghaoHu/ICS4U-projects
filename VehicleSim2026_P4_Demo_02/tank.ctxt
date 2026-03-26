@@ -2,10 +2,12 @@
 comment0.target=tank
 comment1.params=origin
 comment1.target=tank(VehicleSpawner)
-comment2.params=
-comment2.target=void\ act()
+comment2.params=w
+comment2.target=void\ addedToWorld(greenfoot.World)
 comment3.params=
-comment3.target=boolean\ checkHitPedestrian()
+comment3.target=void\ act()
 comment4.params=
-comment4.target=void\ removeObject()
-numComments=5
+comment4.target=boolean\ checkHitPedestrian()
+comment5.params=
+comment5.target=void\ removeObject()
+numComments=6

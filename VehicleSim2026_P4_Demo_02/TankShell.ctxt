@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=TankShell
+comment1.params=angle\ ownerVehicle
+comment1.target=TankShell(int,\ Vehicle)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=Vehicle\ findVehicleHit()
+comment4.params=
+comment4.target=void\ explodeRemove()
+numComments=5

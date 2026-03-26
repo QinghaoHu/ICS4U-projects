@@ -19,7 +19,7 @@ public class laneChecker extends Actor
 
     public laneChecker(int width) {
         this.width = width;
-        GreenfootImage image = new GreenfootImage((int)(1.7 * width), 72);
+        GreenfootImage image = new GreenfootImage((int)(2 * width), 72);
         setImage(image);
     }
 

@@ -58,6 +58,39 @@ public class MineCleaner extends Vehicle {
         removeMines();
     }
 
+    public void drive() {
+        // Ahead is a generic vehicle - we don't know what type BUT
+        // since every Vehicle "promises" to have a getSpeed() method,
+        // we can call that on any vehicle to find out it's speed
+        int lookAheadDistance0 = direction * (int) (speed * 15 + getImage().getWidth() / 2 + followingDistance);
+        Vehicle aheadVehicle = (Vehicle) getOneObjectAtOffset(lookAheadDistance0, 0, Vehicle.class);
+        double otherVehicleSpeed = -1;
+        if (aheadVehicle != null) {
+            if (!isChangingLane) {
+                if (changeLine()) {
+                    return;
+                }
+            }
+            if (aheadVehicle != null) {
+                otherVehicleSpeed = aheadVehicle.getSpeed();
+            }
+
+        }
+
+        // Various things that may slow down driving speed
+        // You can ADD ELSE IF options to allow other
+        // factors to reduce driving speed.
+
+        if (otherVehicleSpeed >= 0 && otherVehicleSpeed < maxSpeed) { // Vehicle ahead is slower?
+            speed = otherVehicleSpeed;
+        } else {
+            speed = maxSpeed; // nothing impeding speed, so go max speed
+        }
+        if (moving) {
+            move(speed * direction);
+        }
+    }
+
     protected boolean checkHitPedestrian() {
         int xOffSet = direction * ((int) speed + getImage().getWidth() / 2);
         int[] yOffSets = {getImage().getHeight() / 2 , getImage().getHeight() / 4, 0, -getImage().getHeight() / 2, -getImage().getHeight() / 2};

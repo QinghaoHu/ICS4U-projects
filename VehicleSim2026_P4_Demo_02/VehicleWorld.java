@@ -92,7 +92,7 @@ public class VehicleWorld extends World {
 
         // Set critical variables - will affect lane drawing
         laneCount = 4;
-        laneHeight = 76;
+        laneHeight = 90;
         spaceBetweenLanes = 8;
         splitAtCenter = true;
         twoWayTraffic = true;
@@ -316,23 +316,24 @@ public class VehicleWorld extends World {
 
     private void spawn() {
         // Chance to spawn a vehicle
-        if (Greenfoot.getRandomNumber(laneCount * 7) == 0) {
+        if (Greenfoot.getRandomNumber(laneCount * 10) == 0) {
             int lane = Greenfoot.getRandomNumber(laneCount);
             if (!laneSpawners[lane].isTouchingVehicle()) {
-                int rand = Greenfoot.getRandomNumber(10);
-                if (rand <= 3) {
+                int rand = Greenfoot.getRandomNumber(100);
+                if (rand < 40) {
                     addObject(new MineCleaner(laneSpawners[lane]), 0, 0);
-                } else if (rand < 9){
+                } else if (rand < 75) {
                     addObject(new Ambulance(laneSpawners[lane]), 0, 0);
+                } else if (rand < 90) {
+                    addObject(new ifv(laneSpawners[lane]), 0, 0);
                 } else {
                     addObject(new tank(laneSpawners[lane]), 0, 0);
                 }
-
             }
         }
 
         // Chance to spawn a Pedestrian
-        if (Greenfoot.getRandomNumber(15) == 0) {
+        if (Greenfoot.getRandomNumber(30) == 0) {
             trySpawnPedestrian();
         }
 
@@ -383,7 +384,7 @@ public class VehicleWorld extends World {
      * specific Pedestrian subclass.
      */
     private Pedestrian createPedestrian(int direction) {
-        if (Greenfoot.getRandomNumber(10) < 6) {
+        if (Greenfoot.getRandomNumber(10) < 4) {
             return new MineDroper(direction, lanePositionsY);
         }
         return new Cvilian(direction);

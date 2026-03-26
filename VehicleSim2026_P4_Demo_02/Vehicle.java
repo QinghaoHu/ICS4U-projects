@@ -248,20 +248,19 @@ public abstract class Vehicle extends SuperSmoothMover {
         // since every Vehicle "promises" to have a getSpeed() method,
         // we can call that on any vehicle to find out it's speed
         int lookAheadDistance0 = direction * (int) (speed * 15 + getImage().getWidth() / 2 + followingDistance);
-        Vehicle ahead0 = (Vehicle) getOneObjectAtOffset(lookAheadDistance0, 0, Vehicle.class);
-        int lookAheadDistance1 = direction * (int) (speed + getImage().getWidth() / 2 + followingDistance);
-        Vehicle ahead1 = (Vehicle) getOneObjectAtOffset(lookAheadDistance1, 0, Vehicle.class);
+        Vehicle aheadVehicle = (Vehicle) getOneObjectAtOffset(lookAheadDistance0, 0, Vehicle.class);
+        Mine aheadMine0 = (Mine) getOneObjectAtOffset(lookAheadDistance0, -getImage().getWidth() / 2, Mine.class);
+        Mine aheadMine1 = (Mine) getOneObjectAtOffset(lookAheadDistance0, 0, Mine.class);
+        Mine aheadMine2 = (Mine) getOneObjectAtOffset(lookAheadDistance0, getImage().getWidth() / 2, Mine.class);
         double otherVehicleSpeed = -1;
-        if (ahead0 != null || ahead1 != null) {
+        if (aheadVehicle != null || aheadMine0 != null || aheadMine1 != null || aheadMine2 != null) {
             if (!isChangingLane) {
                 if (changeLine()) {
                     return;
                 }
             }
-            if (ahead0 != null) {
-                otherVehicleSpeed = ahead0.getSpeed();
-            } else if (ahead1 != null) {
-                otherVehicleSpeed = ahead1.getSpeed();
+            if (aheadVehicle != null) {
+                otherVehicleSpeed = aheadVehicle.getSpeed();
             }
 
         }
@@ -303,9 +302,6 @@ public abstract class Vehicle extends SuperSmoothMover {
             return;
         }
         for (Vehicle v : touchingVehicle) {
-            if (!v.isChangingLane) {
-                continue;
-            }
             getWorld().addObject(new Explosion(1, 10, 50, 0.4, Color.BLUE, 0), v.getX(), v.getY());
             v.removeObject();
         }
@@ -323,21 +319,21 @@ public abstract class Vehicle extends SuperSmoothMover {
         return 0;
     }
 
-    private boolean changeLine() {
+    protected boolean changeLine() {
         if (changeLaneCoolDown != 0) {
             return false;
         }
         laneChecker checker = new laneChecker(getImage().getWidth());
-        getWorld().addObject(checker, this.getX(), this.getY() + changingLaneDirection[myLaneNumber] * 84);
+        getWorld().addObject(checker, this.getX(), this.getY() + changingLaneDirection[myLaneNumber] * 98);
 
         if (checker.isTouching()) {
             return false;
         }
 
-        targetY = this.getY() + changingLaneDirection[myLaneNumber] * 84;
+        targetY = this.getY() + changingLaneDirection[myLaneNumber] * 98;
         isChangingLane = true;
 
-        turnAngle = (int)Math.toDegrees(Math.atan2((double)84, speed * 21)) * changingLaneAngle[myLaneNumber];
+        turnAngle = (int)Math.toDegrees(Math.atan2((double)98, speed * 21)) * changingLaneAngle[myLaneNumber];
 //        getImage().rotate(turnAngle);
         turn(turnAngle);
         fromY = this.getY();

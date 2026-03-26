@@ -16,6 +16,7 @@ public class Cvilian extends Pedestrian
     public Cvilian(int direction) {
         super(direction, "civilian-move/civilian-move_", new GreenfootImage("civilianKnockDown.png"));
         this.direction = direction;
+        speed = Math.random() * 2 + 0.5;
     }
 
     public void act()

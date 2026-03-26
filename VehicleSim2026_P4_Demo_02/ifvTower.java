@@ -1,20 +1,18 @@
-import greenfoot.Greenfoot;
-import greenfoot.GreenfootImage;
-import greenfoot.World;
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class tankTower here.
- *
- * @author (your name)
+ * Write a description of class ifvTower here.
+ * 
+ * @author (your name) 
  * @version (a version number or a date)
  */
-public class tankTower extends tower {
+public class ifvTower extends tower
+{
     private static final int MAX_ROTATION_PER_ACT = 3;
-    private static int fireCoolDown = 240;
-    protected GreenfootImage tankTowerImage = new GreenfootImage("tankTower.png");
+    private static int fireCoolDown = 20;
 
-    public tankTower(Vehicle body) {
-        super(body, new GreenfootImage("tankTower.png"));
+    public ifvTower(Vehicle body) {
+        super(body, new GreenfootImage("ifvTower1.png"));
     }
     /**
      * Act - do whatever the tankTower wants to do. This method is called whenever
@@ -57,7 +55,7 @@ public class tankTower extends tower {
         }
 
         int firingAngle = getRotation();
-        TankShell shell = new TankShell(firingAngle, body, 2);
+        TankShell shell = new TankShell(firingAngle, body, 1);
         getWorld().addObject(shell, getX(), getY());
     }
 

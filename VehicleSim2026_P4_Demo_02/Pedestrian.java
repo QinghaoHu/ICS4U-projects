@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Jordan Cohen
  * @version 2023
  */
-public class Pedestrian extends SuperSmoothMover {
+public abstract class Pedestrian extends SuperSmoothMover {
     protected double speed;
     protected double maxSpeed;
     protected int direction; // direction is always -1 or 1, for moving down or up, respectively
@@ -25,10 +25,11 @@ public class Pedestrian extends SuperSmoothMover {
     protected int countDown, baseCountDown = 1;
     protected int imageNumber;
     protected GreenfootImage knockDownImage;
+    protected Boolean death;
 
     public Pedestrian(int direction, String imagePrefix, GreenfootImage knockDownImage) {
         // choose a random speed
-        maxSpeed = Math.random() * 2 + 1;
+        maxSpeed = Math.random() * 2 + 2;
         speed = maxSpeed;
         // start as awake
         awake = true;
@@ -48,6 +49,7 @@ public class Pedestrian extends SuperSmoothMover {
         imageNumber = 0;
         countDown = 1;
         this.knockDownImage = knockDownImage;
+        death = false;
     }
 
     /**
@@ -59,6 +61,16 @@ public class Pedestrian extends SuperSmoothMover {
         if (getWorld() == null) {
             return;
         }
+
+        if (death) {
+            sleepFor(30);
+            getWorld().removeObject(this);
+        }
+
+        if (getWorld() == null) {
+            return;
+        }
+
         // Awake is false if the Pedestrian is "knocked down"
         if (awake) {
             // Check in the direction I'm moving vertically for a Vehicle -- and only move if there is no Vehicle in front of me.
@@ -108,6 +120,10 @@ public class Pedestrian extends SuperSmoothMover {
         }
     }
 
+    protected void die() {
+        death = true;
+    }
+
     public void blowMeAround(double intensity) {
         // to add randomness, every 6 acts on average, do nothing
         // instead of moving with the wind
@@ -147,7 +163,7 @@ public class Pedestrian extends SuperSmoothMover {
         health -= 50;
 
         if (health <= 0) {
-            getWorld().removeObject(this);
+            die();
             return;
         }
 
@@ -180,7 +196,7 @@ public class Pedestrian extends SuperSmoothMover {
     public void damage(int damageAmount) {
         health -= damageAmount;
         if (health <= 0) {
-            getWorld().removeObject(this);
+            die();
         } else if (health <= 50) {
             if (!isAwake()) {
                 return;

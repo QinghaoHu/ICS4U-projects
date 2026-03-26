@@ -4,7 +4,6 @@ import greenfoot.World;
 import java.util.ArrayList;
 
 public class tank extends Vehicle {
-    protected GreenfootImage image;
     protected tankTower tanktower;
 
     public tank(VehicleSpawner origin) {
@@ -30,7 +29,10 @@ public class tank extends Vehicle {
         ArrayList<Pedestrian> pedestrians = (ArrayList<Pedestrian>) getIntersectingObjects(Pedestrian.class);
         for (Pedestrian p : pedestrians) {
             if (p.getWorld() != null) {
-                getWorld().removeObject(p);
+                if (p.isAwake()) {
+                    p.knockDownByCar(this.direction);
+                }
+                p.die();
             }
         }
 

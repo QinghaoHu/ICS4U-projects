@@ -34,7 +34,7 @@ public class MineDroper extends Pedestrian {
             return;
         }
 
-        int randomNumber = Greenfoot.getRandomNumber(30);
+        int randomNumber = Greenfoot.getRandomNumber(45);
         if (randomNumber == 0) {
             for (int i = 0; i < 4; i++) {
                 if (this.getY() >= lanePosition[i] - 38 && this.getY() <= lanePosition[i] + 38 && !haveDropedMine[i]) {
