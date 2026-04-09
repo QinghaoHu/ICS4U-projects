@@ -2,16 +2,16 @@
 
 ## Summary
 
-This repository is a Greenfoot Java scenario built around lane-based road traffic and vertically moving pedestrians. The current runtime has shifted away from the older `MineCleaner` / `Ambulance` mix and now primarily spawns armed `tank` vehicles with separate `tankTower` actors.
+This repository is a Greenfoot Java scenario built around lane-based road traffic and vertically moving pedestrians. The current runtime has shifted away from the older `MineCleaner` / `Ambulance` mix and now primarily spawns armed `Tank` vehicles with separate `TankTower` actors.
 
 Current gameplay features:
 
-- `tank` vehicles drive horizontally across the road lanes.
-- each `tank` owns a separate `tankTower` actor that rotates independently
-- `tankTower` targets the nearest awake `MineDroper`
+- `Tank` vehicles drive horizontally across the road lanes.
+- each `Tank` owns a separate `TankTower` actor that rotates independently
+- `TankTower` targets the nearest awake `MineDropper`
 - `TankShell` projectiles damage both vehicles and pedestrians, so friendly fire is possible
-- `MineDroper` pedestrians walk vertically and may place mines
-- `Cvilian` pedestrians walk vertically without dropping mines
+- `MineDropper` pedestrians walk vertically and may place mines
+- `Civilian` pedestrians walk vertically without dropping mines
 - `Windstorm` still exists and can push pedestrians sideways, but rain is effectively disabled by configuration
 - a background collision mask blocks pedestrians from spawning or moving inside scenery
 - an on-screen `Counter` currently displays FPS in the world
@@ -39,7 +39,7 @@ Assumptions:
 - world is unbounded
 - background image: `images/background.png`
 - pedestrian collision mask: `images/background_collision.png`
-- paint order: `Explosion`, `TankShell`, `tower`, `Vehicle`, `Pedestrian`
+- paint order: `Explosion`, `TankShell`, `Tower`, `Vehicle`, `Pedestrian`
 - `VehicleWorld` also re-runs z-sort every act for non-`Effect` actors
 - an FPS `Counter` is added near the top-left at `(100, 100)`
 
@@ -57,26 +57,26 @@ Assumptions:
   - each act has a `1 / (laneCount * 10)` chance to attempt a vehicle spawn
   - a random lane is chosen
   - spawn is blocked if the lane spawner is still touching a vehicle
-  - `VehicleWorld.spawn()` currently spawns only `tank`
+  - `VehicleWorld.spawn()` currently spawns only `Tank`
 
 - Pedestrians:
   - each act has a `1 / 30` chance to attempt a pedestrian spawn
   - spawn side is chosen randomly from top or bottom
   - the world retries up to `MAX_PEDESTRIAN_SPAWN_ATTEMPTS` times to find a valid x-position
   - spawned type is selected in `VehicleWorld.createPedestrian(int)`:
-    - about 40% `MineDroper`
-    - about 60% `Cvilian`
+    - about 40% `MineDropper`
+    - about 60% `Civilian`
   - `MAX_PEDESTRIANS` is still defined but not enforced
 
 ### Tank Combat Flow
 
-- `tank.addedToWorld(...)` creates a paired `tankTower`
-- `tankTower.act()` keeps the tower centered on the tank body
-- the tower searches for the nearest awake `MineDroper`
+- `Tank.addedToWorld(...)` creates a paired `TankTower`
+- `TankTower.act()` keeps the Tower centered on the Tank body
+- the Tower searches for the nearest awake `MineDropper`
 - it rotates toward that target at a maximum of `3` degrees per act
 - when its cooldown reaches zero, it fires a `TankShell` in its current facing direction
 - `TankShell` leaves a fading `TrailPiece` behind it each act
-- shells ignore the firing tank itself but can damage:
+- shells ignore the firing Tank itself but can damage:
   - other `Vehicle` instances
   - any `Pedestrian` instance
 
@@ -108,39 +108,39 @@ Important detail:
 
 - older repo commentary about `MineCleaner` overlap bugs still applies to that class, but it is no longer the default spawned vehicle
 
-### `tank`
+### `Tank`
 
 - extends `Vehicle`
-- owns a `tankTower`
+- owns a `TankTower`
 - currently removes intersecting pedestrians outright in `checkHitPedestrian()`
 
 Important detail:
 
-- this class is lower-case (`tank`) rather than Java-standard `Tank`
+- this class uses standard Java capitalization (`Tank`)
 - it depends on `project.greenfoot` for its default body image mapping
 
-### `tower`
+### `Tower`
 
-- abstract base class for tower actors
+- abstract base class for Tower actors
 - follows the paired vehicle body
-- provides nearest-awake-`MineDroper` target acquisition
+- provides nearest-awake-`MineDropper` target acquisition
 
-### `tankTower`
+### `TankTower`
 
-- extends `tower`
-- rotates independently from the tank body
-- aims at the nearest awake `MineDroper`
+- extends `Tower`
+- rotates independently from the Tank body
+- aims at the nearest awake `MineDropper`
 - applies a turn-rate cap of `3` degrees per act
 - fires on a cooldown of `240` acts
 
 Important detail:
 
-- firing currently uses the tower center as the shell spawn point, not an offset muzzle point
+- firing currently uses the Tower center as the shell spawn point, not an offset muzzle point
 - the cooldown tuning value is stored as `static int fireCoolDown = 240`
 
 ### `TankShell`
 
-- projectile fired by `tankTower`
+- projectile fired by `TankTower`
 - uses a procedurally drawn sprite
 - moves at speed `10`
 - deals `100` damage
@@ -159,14 +159,14 @@ Current constructor contract:
 
 This contract matters because every pedestrian subclass must pass both the animation prefix and the knockdown image.
 
-### `MineDroper`
+### `MineDropper`
 
 - extends `Pedestrian`
 - uses `move/survivor-move_knife_*.png`
 - drops at most one mine per lane per pedestrian instance
-- is the only tower-targeted pedestrian type
+- is the only Tower-targeted pedestrian type
 
-### `Cvilian`
+### `Civilian`
 
 - extends `Pedestrian`
 - uses `civilian-move/civilian-move_*.png`
@@ -174,7 +174,7 @@ This contract matters because every pedestrian subclass must pass both the anima
 
 ### `Mine`
 
-- static lane obstacle dropped by `MineDroper`
+- static lane obstacle dropped by `MineDropper`
 - explodes into an `Explosion` when triggered
 
 ### `Explosion`
@@ -203,11 +203,11 @@ This contract matters because every pedestrian subclass must pass both the anima
 
 ### Tank Assets
 
-- `project.greenfoot` maps `class.tank.image=tankBody.png`
-- `images/tankTower.png` is the active tower image
-- `images/backup/` stores backups of edited tank art
+- `project.greenfoot` maps `class.Tank.image=tankbody2.png`
+- `images/TankTower.png` is the active Tower image
+- `images/backup/` stores backups of edited Tank art
 
-### Soldier / MineDroper Animation
+### Soldier / MineDropper Animation
 
 - folder: `images/move/`
 - naming: `survivor-move_knife_<frame>.png`
@@ -222,15 +222,14 @@ This contract matters because every pedestrian subclass must pass both the anima
 
 ### Knockdown Images
 
-- `MineDroper`: `soilderKnock-removebg.png`
-- `Cvilian`: `civilianKnockDown.png`
+- `MineDropper`: `soilderKnock-removebg.png`
+- `Civilian`: `civilianKnockDown.png`
 
 ## Known Code Realities
 
-- naming is inconsistent:
-  - `MineDroper` is misspelled
-  - `Cvilian` is misspelled
-  - `tank` and `tower` are lower-case class names
+- naming is still partially inconsistent:
+  - `MineDropper` remains a non-standard spelling in English
+  - class capitalization is now consistent (`Tank`, `Tower`, `Ifv`, `IfvTower`, `LaneChecker`)
 - source, assets, Greenfoot metadata, generated docs, and compiled `.class` files live in one folder tree
 - `Pedestrian` is a stronger base class now because it owns animation setup and damage state
 - `MAX_PEDESTRIANS` exists but does not currently limit spawns
@@ -241,29 +240,29 @@ This contract matters because every pedestrian subclass must pass both the anima
 
 - if `Pedestrian` constructor parameters change, every subclass must be updated immediately
 - Greenfoot-only behavior, especially class-image defaults from `project.greenfoot`, can be easy to break if the project is moved outside Greenfoot
-- `tank.checkHitPedestrian()` currently removes intersecting pedestrians directly, bypassing the softer knockdown/heal systems used elsewhere
-- `TankShell` can damage any pedestrian, not just `MineDroper`, which is intentional current behavior
-- shell trails can create many transient actors during heavy tank fire
-- tank combat and mine-clearing/healing systems now coexist in the codebase, but only one of those systems is active by default
+- `Tank.checkHitPedestrian()` currently removes intersecting pedestrians directly, bypassing the softer knockdown/heal systems used elsewhere
+- `TankShell` can damage any pedestrian, not just `MineDropper`, which is intentional current behavior
+- shell trails can create many transient actors during heavy Tank fire
+- Tank combat and mine-clearing/healing systems now coexist in the codebase, but only one of those systems is active by default
 
 ## Recommended Reading Order For A New Maintainer
 
 1. `README.TXT`
 2. `HANDOFF.md`
 3. `VehicleWorld.java`
-4. `tank.java`
-5. `tower.java`
-6. `tankTower.java`
+4. `Tank.java`
+5. `Tower.java`
+6. `TankTower.java`
 7. `TankShell.java`
 8. `Pedestrian.java`
-9. `MineDroper.java`
+9. `MineDropper.java`
 10. `pedestrian-background-collision.md`
 
 ## Safe Next Steps
 
 - if you are adjusting gameplay balance, start in `VehicleWorld.java`
-- if you are adjusting tank combat feel, start in `tankTower.java` and `TankShell.java`
-- if you are adjusting tower targeting, start in `tower.java`
+- if you are adjusting Tank combat feel, start in `TankTower.java` and `TankShell.java`
+- if you are adjusting Tower targeting, start in `Tower.java`
 - if you are adjusting walking or animation behavior, start in `Pedestrian.java` plus the relevant subclass
 - if you are debugging vehicle overlap during mine removal, inspect both `MineCleaner.act()` and `Vehicle.drive()`
 - if you are reactivating support-vehicle gameplay, inspect `VehicleWorld.spawn()`, `MineCleaner.java`, and `Ambulance.java`

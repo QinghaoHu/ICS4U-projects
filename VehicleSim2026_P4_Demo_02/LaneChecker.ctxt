@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=LaneChecker
+comment0.text=\n\ Write\ a\ description\ of\ class\ LaneChecker\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=width
+comment1.target=LaneChecker(int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=java.util.ArrayList\ getObjects()
+comment4.params=
+comment4.target=boolean\ isTouching()
+numComments=5

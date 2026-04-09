@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=MineDropper
+comment1.params=direction\ lanePosition
+comment1.target=MineDropper(int,\ int[])
+comment10.params=damageAmount
+comment10.target=void\ damageByAirStrike(int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ dropMine()
+comment4.params=
+comment4.target=greenfoot.GreenfootSound[]\ createDropMineSounds()
+comment5.params=
+comment5.target=void\ playDropMineSound()
+comment6.params=
+comment6.target=int\ getMineDropperKilled()
+comment7.params=
+comment7.target=void\ resetMineDropperKilled()
+comment8.params=
+comment8.target=void\ die()
+comment9.params=
+comment9.target=void\ dieUnderAirStrike()
+numComments=11

@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Ifv
+comment0.text=\n\ Write\ a\ description\ of\ class\ Ifv\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=origin
+comment1.target=Ifv(VehicleSpawner)
+comment2.params=w
+comment2.target=void\ addedToWorld(greenfoot.World)
+comment3.params=
+comment3.target=void\ act()
+comment3.text=\n\ Act\ -\ do\ whatever\ the\ Ifv\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment4.params=
+comment4.target=boolean\ checkHitPedestrian()
+comment5.params=
+comment5.target=greenfoot.GreenfootSound[]\ createSoundEffect()
+comment6.params=
+comment6.target=void\ playSoundEffect()
+comment7.params=
+comment7.target=int\ getCivilianSaved()
+comment8.params=
+comment8.target=void\ resetCivilianSaved()
+comment9.params=
+comment9.target=void\ removeObject()
+numComments=10

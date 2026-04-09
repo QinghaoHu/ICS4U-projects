@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Civilian
+comment0.text=\n\ Write\ a\ description\ of\ class\ Civilian\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=direction
+comment1.target=Civilian(int)
+comment1.text=\n\ Act\ -\ do\ whatever\ the\ Civilian\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment2.params=
+comment2.target=int\ getCivilianKilledCount()
+comment3.params=
+comment3.target=void\ resetCivilianKilledCount()
+comment4.params=
+comment4.target=void\ act()
+comment5.params=
+comment5.target=void\ die()
+comment6.params=vehicle
+comment6.target=void\ getIfvPickMeUp(Ifv)
+numComments=7

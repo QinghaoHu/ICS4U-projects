@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Tower
+comment0.text=\n\ Write\ a\ description\ of\ class\ Tower\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=body\ towerImage\ fireCoolDown\ typeNumber\ maxRotatePerAct
+comment1.target=Tower(Vehicle,\ greenfoot.GreenfootImage,\ int,\ int,\ int)
+comment10.params=volume
+comment10.target=void\ playSoundEffects(int)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ Act\ -\ do\ whatever\ the\ Tower\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment3.params=angle
+comment3.target=int\ normalizeAngle(int)
+comment4.params=
+comment4.target=void\ fire()
+comment5.params=
+comment5.target=void\ updateGunState()
+comment6.params=
+comment6.target=void\ toScoutMode()
+comment7.params=
+comment7.target=void\ toLiveMode()
+comment8.params=
+comment8.target=MineDropper\ nearestMineDropper()
+comment9.params=
+comment9.target=greenfoot.GreenfootSound[]\ createSoundEffect()
+numComments=11

@@ -17,6 +17,8 @@ import java.util.List;
  * @version 2023
  */
 public abstract class Vehicle extends SuperSmoothMover {
+    private static final int VEHICLE_DESTRUCTION_VOLUME = 22;
+
     protected double maxSpeed;
     protected double speed;
     protected int direction; // 1 = right, -1 = left
@@ -26,8 +28,10 @@ public abstract class Vehicle extends SuperSmoothMover {
     protected VehicleSpawner origin;
     protected int followingDistance; // extra look-ahead distance when checking traffic ahead
     protected int myLaneNumber;
+
     protected int health;
     protected int maxHealth;
+
     protected int [] changingLaneDirection = {1, -1, 1, -1};
     protected int [] changingLaneAngle = {-1, 1, 1, -1};
     protected boolean isChangingLane;
@@ -35,8 +39,9 @@ public abstract class Vehicle extends SuperSmoothMover {
     protected int fromY;
     protected int turnAngle;
     protected int changeLaneCoolDown;
-    protected int maxchangeLaneCoolDown;
-    protected int cnt = 100;
+    protected int maxChangeLaneCoolDown;
+
+    protected SuperStatBar hpBar;
 
     public Vehicle(VehicleSpawner origin, int health) {
         // remember the VehicleSpawner I came from. This includes information
@@ -65,8 +70,12 @@ public abstract class Vehicle extends SuperSmoothMover {
         maxHealth = health;
 
         isChangingLane = false;
-        maxchangeLaneCoolDown = 60;
+        followingDistance = 5;
+        maxChangeLaneCoolDown = 30;
+
+        hpBar = new SuperStatBar(maxHealth, health, this, 30, 8, -32, Color.BLUE, Color.RED, true, Color.WHITE, 1);
     }
+
 
     protected abstract boolean checkHitPedestrian();
 
@@ -90,6 +99,7 @@ public abstract class Vehicle extends SuperSmoothMover {
         if (isNew) {
             setLocation(origin.getX() - (direction * 100), origin.getY() - yOffset);
             isNew = false;
+            w.addObject(hpBar, getX(), getY());
         }
     }
 
@@ -103,15 +113,14 @@ public abstract class Vehicle extends SuperSmoothMover {
     public void act() {
         if (changeLaneCoolDown > 0) changeLaneCoolDown--;
         if (isChangingLane) {
-//            setLocation(this.getX(), this.getY() + changingLaneDirection[myLaneNumber] * 4);
+            // if change lane accomplished, turn back the angle, update lane number, set change lane cool down.
             if ((fromY < targetY && this.getY() >= targetY) || (fromY > targetY && this.getY() <= targetY)) {
                 isChangingLane = false;
-//                getImage().rotate(-turnAngle);
                 turn(-turnAngle);
                 setLocation(this.getX(), targetY);
                 targetY = 0;
                 myLaneNumber += changingLaneDirection[myLaneNumber];
-                changeLaneCoolDown = maxchangeLaneCoolDown;
+                changeLaneCoolDown = maxChangeLaneCoolDown;
             }
         }
 
@@ -135,15 +144,19 @@ public abstract class Vehicle extends SuperSmoothMover {
             return;
         }
 
-        trigerMines();
+        triggerMines();
 
         if (getWorld() == null) {
             return;
         }
 
-        if (isChangingLane) {
-            crashCar();
+        crashCar();
+
+        if (getWorld() == null) {
+            return;
         }
+
+        hpBar.update(health);
     }
 
     /**
@@ -247,29 +260,51 @@ public abstract class Vehicle extends SuperSmoothMover {
         // Ahead is a generic vehicle - we don't know what type BUT
         // since every Vehicle "promises" to have a getSpeed() method,
         // we can call that on any vehicle to find out it's speed
-        int lookAheadDistance0 = direction * (int) (speed * 15 + getImage().getWidth() / 2 + followingDistance);
+        // Three sets of detector for front cars
+        // To prevent some extreme cases, I add two extra detector with 2 different distance
+        int lookAheadDistance0 = direction * (int) (speed * 10 + getImage().getWidth() / 2 + followingDistance);
         Vehicle aheadVehicle = (Vehicle) getOneObjectAtOffset(lookAheadDistance0, 0, Vehicle.class);
+
+        int lookAheadDistance01 = direction * (int) (speed + getImage().getWidth() / 2 + followingDistance);
+        Vehicle aheadVehicle1 = (Vehicle) getOneObjectAtOffset(lookAheadDistance01, 0, Vehicle.class);
+
+        int lookAheadDistance02 = direction * (int) (speed + getImage().getWidth() / 2);
+        Vehicle aheadVehicle2 = (Vehicle) getOneObjectAtOffset(lookAheadDistance02, 0, Vehicle.class);
+
+        // five sets of mine detectpr at the front of the car
         Mine aheadMine0 = (Mine) getOneObjectAtOffset(lookAheadDistance0, -getImage().getWidth() / 2, Mine.class);
         Mine aheadMine1 = (Mine) getOneObjectAtOffset(lookAheadDistance0, 0, Mine.class);
         Mine aheadMine2 = (Mine) getOneObjectAtOffset(lookAheadDistance0, getImage().getWidth() / 2, Mine.class);
-        double otherVehicleSpeed = -1;
-        if (aheadVehicle != null || aheadMine0 != null || aheadMine1 != null || aheadMine2 != null) {
-            if (!isChangingLane) {
+        Mine aheadMine3 = (Mine) getOneObjectAtOffset(lookAheadDistance0, getImage().getWidth() / 4, Mine.class);
+        Mine aheadMine4 = (Mine) getOneObjectAtOffset(lookAheadDistance0, -getImage().getWidth() / 4, Mine.class);
+
+        // if detect mines of car in the front, and with a distance of change lane safety distance
+        if (!isChangingLane) {
+            if (aheadVehicle != null || aheadMine0 != null || aheadMine1 != null || aheadMine2 != null || aheadMine3 != null || aheadMine4 != null) {
                 if (changeLine()) {
                     return;
                 }
             }
-            if (aheadVehicle != null) {
-                otherVehicleSpeed = aheadVehicle.getSpeed();
-            }
+        }
+        
 
+        // stop if the distance is not enough or cannot change lane
+        double otherVehicleSpeed = -1;
+        if (aheadVehicle != null) {
+            otherVehicleSpeed = aheadVehicle.getSpeed();
+        }
+        if (aheadVehicle1 != null) {
+            otherVehicleSpeed = aheadVehicle1.getSpeed();
+        }
+        if (aheadVehicle2 != null) {
+            otherVehicleSpeed = aheadVehicle2.getSpeed();
         }
 
         // Various things that may slow down driving speed 
         // You can ADD ELSE IF options to allow other 
         // factors to reduce driving speed.
 
-        if (otherVehicleSpeed >= 0 && otherVehicleSpeed < maxSpeed) { // Vehicle ahead is slower?
+        if (otherVehicleSpeed >= 0 && otherVehicleSpeed < maxSpeed) {// Vehicle ahead is slower?
             speed = otherVehicleSpeed;
         } else {
             speed = maxSpeed; // nothing impeding speed, so go max speed
@@ -282,12 +317,20 @@ public abstract class Vehicle extends SuperSmoothMover {
     public void damage(int damageAmount) {
         health -= damageAmount;
         if (health <= 0) {
-            getWorld().addObject(new Explosion(5, 10, 120, 3, new Color(255, 69, 0), 30), getX(), getY());
+            getWorld().addObject(new Explosion(5, 10, 120, 1, Color.RED, 30, false, VEHICLE_DESTRUCTION_VOLUME), getX(), getY());
             removeObject();
         }
     }
 
-    protected void trigerMines() {
+    // Damage by air strike does not lead to second explosion
+    public void damageByAirStrike(int damageAmount) {
+        health -= damageAmount;
+        if (health <= 0) {
+            removeObject();
+        }
+    }
+
+    protected void triggerMines() {
         ArrayList<Mine> mines = (ArrayList<Mine>) getIntersectingObjects(Mine.class);
         for (Mine mine : mines) {
             if (mine != null && mine.getWorld() != null) {
@@ -296,16 +339,20 @@ public abstract class Vehicle extends SuperSmoothMover {
         }
     }
 
+    // When chang lanes, if two car crash together
     protected void crashCar() {
         ArrayList<Vehicle> touchingVehicle = (ArrayList<Vehicle>) getIntersectingObjects(Vehicle.class);
         if (touchingVehicle.isEmpty()) {
             return;
         }
+        if (!isChangingLane) {
+            return;
+        }
         for (Vehicle v : touchingVehicle) {
-            getWorld().addObject(new Explosion(1, 10, 50, 0.4, Color.BLUE, 0), v.getX(), v.getY());
+            getWorld().addObject(new Explosion(1, 10, 50, 0.4, Color.BLUE, 0, false, 0), v.getX(), v.getY());
             v.removeObject();
         }
-        getWorld().addObject(new Explosion(1, 10, 50, 0.4, Color.BLUE, 0), this.getX(), this.getY());
+        getWorld().addObject(new Explosion(1, 10, 50, 0.4, Color.BLUE, 0, false, 0), this.getX(), this.getY());
         removeObject();
     }
 
@@ -319,11 +366,12 @@ public abstract class Vehicle extends SuperSmoothMover {
         return 0;
     }
 
+    // change lane
     protected boolean changeLine() {
         if (changeLaneCoolDown != 0) {
             return false;
         }
-        laneChecker checker = new laneChecker(getImage().getWidth());
+        LaneChecker checker = new LaneChecker(getImage().getWidth());
         getWorld().addObject(checker, this.getX(), this.getY() + changingLaneDirection[myLaneNumber] * 98);
 
         if (checker.isTouching()) {
@@ -333,8 +381,8 @@ public abstract class Vehicle extends SuperSmoothMover {
         targetY = this.getY() + changingLaneDirection[myLaneNumber] * 98;
         isChangingLane = true;
 
+        // make sure the turn complete in 21 acts
         turnAngle = (int)Math.toDegrees(Math.atan2((double)98, speed * 21)) * changingLaneAngle[myLaneNumber];
-//        getImage().rotate(turnAngle);
         turn(turnAngle);
         fromY = this.getY();
         return true;

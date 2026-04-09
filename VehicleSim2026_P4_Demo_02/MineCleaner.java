@@ -7,11 +7,11 @@ public class MineCleaner extends Vehicle {
     protected static GreenfootImage image;
     private Mine mineToRemove;
     private int sleepCount;
-    HashMap<Pedestrian, Integer> pedestrianCnt;
+    private HashMap<Pedestrian, Integer> pedestrianCnt;
 
     public MineCleaner(VehicleSpawner origin) {
         super(origin, 150);
-        initializeSpeed(1 + ((Math.random() * 10) / 5.0));
+        initializeSpeed(2 + ((Math.random() * 10) / 5.0));
         mineToRemove = null;
         sleepCount = 0;
 
@@ -27,29 +27,13 @@ public class MineCleaner extends Vehicle {
         if (sleepCount > 0) {
             sleepCount--;
             speed = 0;
+            if (sleepCount == 0) {
+                finishMineRemoval();
+            }
             return;
-        } else {
-            speed = maxSpeed;
         }
 
         super.act();
-
-        if (getWorld() == null) {
-            return;
-        }
-
-        if (mineToRemove != null) {
-            ArrayList<Mine> mines = (ArrayList<Mine>) getIntersectingObjects(Mine.class);
-            for (Mine mine : mines) {
-                if (mine == mineToRemove) {
-                    getWorld().removeObject(mineToRemove);
-                    ;
-                    return;
-                }
-            }
-
-            mineToRemove = null;
-        }
 
         if (getWorld() == null) {
             return;
@@ -63,7 +47,13 @@ public class MineCleaner extends Vehicle {
         // since every Vehicle "promises" to have a getSpeed() method,
         // we can call that on any vehicle to find out it's speed
         int lookAheadDistance0 = direction * (int) (speed * 15 + getImage().getWidth() / 2 + followingDistance);
+        int lookAheadDistance1 = direction * (int) (speed + getImage().getWidth() / 2 + followingDistance);
         Vehicle aheadVehicle = (Vehicle) getOneObjectAtOffset(lookAheadDistance0, 0, Vehicle.class);
+        Vehicle aheadVehicle1 = (Vehicle) getOneObjectAtOffset(lookAheadDistance1, 0, Vehicle.class);
+        int lookAheadDistance02 = direction * (int) (speed + getImage().getWidth() / 2);
+        Vehicle aheadVehicle2 = (Vehicle) getOneObjectAtOffset(lookAheadDistance02, 0, Vehicle.class);
+
+        // Similar to vehicle's change lane, but do not change lane to avoid mines.
         double otherVehicleSpeed = -1;
         if (aheadVehicle != null) {
             if (!isChangingLane) {
@@ -71,11 +61,17 @@ public class MineCleaner extends Vehicle {
                     return;
                 }
             }
-            if (aheadVehicle != null) {
-                otherVehicleSpeed = aheadVehicle.getSpeed();
-            }
-
         }
+        if (aheadVehicle != null) {
+            otherVehicleSpeed = aheadVehicle.getSpeed();
+        }
+        if (aheadVehicle1 != null) {
+            otherVehicleSpeed = aheadVehicle1.getSpeed();
+        }
+        if (aheadVehicle2 != null) {
+            otherVehicleSpeed = aheadVehicle2.getSpeed();
+        }
+
 
         // Various things that may slow down driving speed
         // You can ADD ELSE IF options to allow other
@@ -92,11 +88,11 @@ public class MineCleaner extends Vehicle {
     }
 
     protected boolean checkHitPedestrian() {
-        int xOffSet = direction * ((int) speed + getImage().getWidth() / 2);
-        int[] yOffSets = {getImage().getHeight() / 2 , getImage().getHeight() / 4, 0, -getImage().getHeight() / 2, -getImage().getHeight() / 2};
+        int xOffset = direction * ((int) speed + getImage().getWidth() / 2);
+        int[] yOffsets = {getImage().getHeight() / 2 , getImage().getHeight() / 4, 0, -getImage().getHeight() / 2, -getImage().getHeight() / 2};
 
         for (int i = 0; i < 5; i++) {
-            Pedestrian p = (Pedestrian) getOneObjectAtOffset(xOffSet, yOffSets[i], Pedestrian.class);
+            Pedestrian p = (Pedestrian) getOneObjectAtOffset(xOffset, yOffsets[i], Pedestrian.class);
             if (p != null) {
                 if (!pedestrianCnt.containsKey(p)) {
                     if (p.isAwake()) {
@@ -113,13 +109,15 @@ public class MineCleaner extends Vehicle {
         return false;
     }
 
+    // When touch a mine, wait for 0.5 second and remove it.
     protected void removeMines() {
-        int xOffSet = direction * ((int) speed + getImage().getWidth() / 2);
-        int[] yOffSets = {getImage().getHeight() / 2 , getImage().getHeight() / 4, 0, -getImage().getHeight() / 2, -getImage().getHeight() / 2};
+        int xOffset = direction * ((int)getImage().getWidth() / 2);
+        int[] yOffsets = {getImage().getHeight() / 2 , getImage().getHeight() / 4, 0, -getImage().getHeight() / 2, -getImage().getHeight() / 2};
 
         for (int i = 0; i < 5; i++) {
-            Mine p = (Mine) getOneObjectAtOffset(xOffSet, yOffSets[i], Mine.class);
+            Mine p = (Mine) getOneObjectAtOffset(xOffset, yOffsets[i], Mine.class);
             if (p != null) {
+                moving = false;
                 sleepCount = 30;
                 speed = 0;
                 mineToRemove = p;
@@ -128,7 +126,22 @@ public class MineCleaner extends Vehicle {
         }
     }
 
-    protected void trigerMines() {
+    // After remove mines, back to normal speed.
+    private void finishMineRemoval() {
+        if (getWorld() == null) {
+            return;
+        }
+
+        if (mineToRemove != null && mineToRemove.getWorld() != null) {
+            getWorld().removeObject(mineToRemove);
+        }
+
+        mineToRemove = null;
+        moving = true;
+        speed = maxSpeed;
+    }
+
+    protected void triggerMines() {
         return;
     }
 }

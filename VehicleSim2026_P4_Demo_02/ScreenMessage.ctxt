@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=ScreenMessage
+comment1.params=text\ actsLeft
+comment1.target=ScreenMessage(java.lang.String,\ int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=text
+comment3.target=greenfoot.GreenfootImage\ buildImage(java.lang.String)
+numComments=4

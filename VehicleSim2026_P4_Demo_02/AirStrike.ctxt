@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=AirStrike
+comment0.text=\n\ Write\ a\ description\ of\ class\ AirStrike\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=flyOverY\ jetSound
+comment1.target=AirStrike(int,\ greenfoot.GreenfootSound)
+comment2.params=
+comment2.target=void\ act()
+numComments=3

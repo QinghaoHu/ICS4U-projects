@@ -3,6 +3,8 @@ import greenfoot.Color;
 import greenfoot.GreenfootImage;
 
 public class Mine extends Actor {
+    private static final int MINE_EXPLOSION_VOLUME = 14;
+
     private static GreenfootImage image;
 
     public Mine() {
@@ -11,13 +13,12 @@ public class Mine extends Actor {
     }
 
     public void act() {
-        if (getWorld() == null) {
-            return;
-        }
+
     }
 
     public void explode() {
-        getWorld().addObject(new Explosion(10, 30, 110,  2, new Color(255, 69, 0), 50), this.getX(), this.getY());
+        // If trigger, add an explosion, remove the mine.
+        getWorld().addObject(new Explosion(10, 30, 110,  2, new Color(255, 69, 0), 50, false, MINE_EXPLOSION_VOLUME), this.getX(), this.getY());
         getWorld().removeObject(this);
     }
 }

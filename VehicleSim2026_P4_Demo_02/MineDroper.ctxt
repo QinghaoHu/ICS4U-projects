@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=MineDroper
-comment1.params=direction\ lanePosition
-comment1.target=MineDroper(int,\ int[])
-comment2.params=
-comment2.target=void\ act()
-comment3.params=
-comment3.target=void\ dropMine()
-numComments=4
